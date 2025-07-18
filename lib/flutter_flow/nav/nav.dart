@@ -79,13 +79,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : LandingPageWidget(),
+          appStateNotifier.loggedIn ? Placeholder() : LandingPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : LandingPageWidget(),
+              appStateNotifier.loggedIn ? Placeholder() : LandingPageWidget(),
         ),
         FFRoute(
           name: ReviewsPageWidget.routeName,
@@ -146,7 +146,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: UserProfileWidget.routeName,
           path: UserProfileWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'user_profile')
+              ? Placeholder() // Replace with the correct widget or import the library containing NavBarPage
               : UserProfileWidget(),
         ),
         FFRoute(
@@ -217,7 +217,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: TabsWidget.routeName,
           path: TabsWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'Tabs')
+              ? TabsWidget(parameterIndex: 0, onTour: false)
               : TabsWidget(
                   parameterIndex: params.getParam(
                     'parameterIndex',
@@ -411,7 +411,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: HomePageWidget.routeName,
           path: HomePageWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'HomePage')
+              ? HomePageWidget()
               : HomePageWidget(
                   onTour: params.getParam(
                     'onTour',
@@ -552,7 +552,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: MarketplaceExploreListingsWidget.routeName,
           path: MarketplaceExploreListingsWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'MarketplaceExploreListings')
+              ? MarketplaceExploreListingsWidget()
               : MarketplaceExploreListingsWidget(
                   onTour: params.getParam(
                     'onTour',
@@ -564,7 +564,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: GptWidget.routeName,
           path: GptWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'GPT')
+              ? Placeholder() // Replace with the correct widget or import the library containing NavBarPage
               : GptWidget(
                   onTour: params.getParam(
                     'onTour',

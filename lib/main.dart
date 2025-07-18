@@ -1,218 +1,142 @@
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
-import 'auth/firebase_auth/firebase_user_provider.dart';
-import 'auth/firebase_auth/auth_util.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-import 'backend/push_notifications/push_notifications_util.dart';
-import 'backend/firebase/firebase_config.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import 'flutter_flow/flutter_flow_util.dart';
-import 'index.dart';
-
-import 'backend/stripe/payment_manager.dart';
+import 'app/bindings/initial_binding.dart';
+import 'app/routes/app_pages.dart';
+import 'app/theme/app_theme.dart';
+import 'core/config/env_config.dart';
+import 'core/services/auth_service.dart';
+import 'core/services/api_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  GoRouter.optionURLReflectsImperativeAPIs = true;
-  usePathUrlStrategy();
-
-  final environmentValues = FFDevEnvironmentValues();
-  await environmentValues.initialize();
-
-  await initFirebase();
-
-  final appState = FFAppState(); // Initialize FFAppState
-  await appState.initializePersistedState();
-
-  await initializeStripe();
-
-  runApp(ChangeNotifierProvider(
-    create: (context) => appState,
-    child: MyApp(),
-  ));
+  
+  // Load environment variables
+  await dotenv.load(fileName: '.env');
+  
+  // Validate environment configuration
+  try {
+    EnvConfig.validate();
+    EnvConfig.printConfig();
+  } catch (e) {
+    print('Environment configuration error: $e');
+    // In production, you might want to exit the app here
+  }
+  
+  // Initialize Firebase
+  await Firebase.initializeApp();
+  
+  // Initialize GetX services
+  Get.put(AuthService());
+  Get.put(ApiService());
+  
+  runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
-  @override
-  State<MyApp> createState() => _MyAppState();
-
-  static _MyAppState of(BuildContext context) =>
-      context.findAncestorStateOfType<_MyAppState>()!;
-}
-
-class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = ThemeMode.system;
-
-  late AppStateNotifier _appStateNotifier;
-  late GoRouter _router;
-  String getRoute([RouteMatch? routeMatch]) {
-    final RouteMatch lastMatch =
-        routeMatch ?? _router.routerDelegate.currentConfiguration.last;
-    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
-        ? lastMatch.matches
-        : _router.routerDelegate.currentConfiguration;
-    return matchList.uri.toString();
-  }
-
-  List<String> getRouteStack() =>
-      _router.routerDelegate.currentConfiguration.matches
-          .map((e) => getRoute(e))
-          .toList();
-  late Stream<BaseAuthUser> userStream;
-
-  final authUserSub = authenticatedUserStream.listen((_) {});
-  final fcmTokenSub = fcmTokenUserStream.listen((_) {});
-
-  @override
-  void initState() {
-    super.initState();
-
-    _appStateNotifier = AppStateNotifier.instance;
-    _router = createRouter(_appStateNotifier);
-    userStream = editingFirebaseUserStream()
-      ..listen((user) {
-        _appStateNotifier.update(user);
-      });
-    jwtTokenStream.listen((_) {});
-    Future.delayed(
-      Duration(milliseconds: 1000),
-      () => _appStateNotifier.stopShowingSplashImage(),
-    );
-  }
-
-  @override
-  void dispose() {
-    authUserSub.cancel();
-    fcmTokenSub.cancel();
-    super.dispose();
-  }
-
-  void setThemeMode(ThemeMode mode) => safeSetState(() {
-        _themeMode = mode;
-      });
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return GetMaterialApp(
+      title: EnvConfig.appName,
       debugShowCheckedModeBanner: false,
-      title: 'EDITING',
-      localizationsDelegates: [
+      
+      // Theme
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
+      
+      // Localization
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [Locale('en', '')],
-      theme: ThemeData(
-        brightness: Brightness.light,
-        useMaterial3: false,
-      ),
-      themeMode: _themeMode,
-      routerConfig: _router,
+      
+      // Routing
+      initialBinding: InitialBinding(),
+      initialRoute: AppPages.initial,
+      getPages: AppPages.routes,
+      
+      // Default transitions
+      defaultTransition: Transition.fadeIn,
+      
+      // Error handling
+      onUnknownRoute: (settings) {
+        return GetPageRoute(
+          page: () => const Scaffold(
+            body: Center(
+              child: Text('Page not found'),
+            ),
+          ),
+        );
+      },
     );
   }
 }
 
-class NavBarPage extends StatefulWidget {
-  NavBarPage({
-    Key? key,
-    this.initialPage,
-    this.page,
-    this.disableResizeToAvoidBottomInset = false,
-  }) : super(key: key);
-
-  final String? initialPage;
-  final Widget? page;
-  final bool disableResizeToAvoidBottomInset;
-
-  @override
-  _NavBarPageState createState() => _NavBarPageState();
-}
-
-/// This is the private State class that goes with NavBarPage.
-class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'HomePage';
-  late Widget? _currentPage;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentPageName = widget.initialPage ?? _currentPageName;
-    _currentPage = widget.page;
-  }
+// Placeholder views for other features (to be implemented)
+class HomeView extends StatelessWidget {
+  const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final tabs = {
-      'HomePage': HomePageWidget(),
-      'MarketplaceExploreListings': MarketplaceExploreListingsWidget(),
-      'GPT': GptWidget(),
-      'Tabs': TabsWidget(),
-      'user_profile': UserProfileWidget(),
-    };
-    final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
-
     return Scaffold(
-      resizeToAvoidBottomInset: !widget.disableResizeToAvoidBottomInset,
-      body: _currentPage ?? tabs[_currentPageName],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (i) => safeSetState(() {
-          _currentPage = null;
-          _currentPageName = tabs.keys.toList()[i];
-        }),
-        backgroundColor: Colors.white,
-        selectedItemColor: FlutterFlowTheme.of(context).accent2,
-        unselectedItemColor: FlutterFlowTheme.of(context).secondary,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              FFIcons.khome,
-              size: 35.0,
-            ),
-            label: '',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              FFIcons.kstore,
-              size: 35.0,
-            ),
-            label: '',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              FFIcons.ksagelogo,
-              size: 32.0,
-            ),
-            label: '',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              FFIcons.kleaf,
-              size: 35.0,
-            ),
-            label: '',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              FFIcons.kaccountCircle,
-              size: 35.0,
-            ),
-            label: '',
-            tooltip: '',
-          )
-        ],
-      ),
+      appBar: AppBar(title: const Text('Home')),
+      body: const Center(child: Text('Home View - Coming Soon')),
+    );
+  }
+}
+
+class MarketplaceView extends StatelessWidget {
+  const MarketplaceView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Marketplace')),
+      body: const Center(child: Text('Marketplace View - Coming Soon')),
+    );
+  }
+}
+
+class GardenView extends StatelessWidget {
+  const GardenView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Garden')),
+      body: const Center(child: Text('Garden View - Coming Soon')),
+    );
+  }
+}
+
+class ChatView extends StatelessWidget {
+  const ChatView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Chat')),
+      body: const Center(child: Text('Chat View - Coming Soon')),
+    );
+  }
+}
+
+class GptView extends StatelessWidget {
+  const GptView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('GPT')),
+      body: const Center(child: Text('GPT View - Coming Soon')),
     );
   }
 }

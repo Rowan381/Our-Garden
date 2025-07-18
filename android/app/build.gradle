@@ -33,7 +33,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.plantculture"
-    compileSdkVersion 35
+    compileSdkVersion 34
     
 
     compileOptions {

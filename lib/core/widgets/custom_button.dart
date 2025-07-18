@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../app/theme/app_theme.dart';
 
+enum ButtonSize { small, medium, large }
+
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -13,6 +15,7 @@ class CustomButton extends StatelessWidget {
   final bool isOutlined;
   final EdgeInsetsGeometry? padding;
   final BorderRadius? borderRadius;
+  final ButtonSize size;
   
   const CustomButton({
     Key? key,
@@ -27,25 +30,25 @@ class CustomButton extends StatelessWidget {
     this.isOutlined = false,
     this.padding,
     this.borderRadius,
+    this.size = ButtonSize.medium,
   }) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final buttonHeight = _getButtonHeight();
+    final buttonPadding = _getButtonPadding();
     
     if (isOutlined) {
       return SizedBox(
         width: width,
-        height: height ?? 48,
+        height: height ?? buttonHeight,
         child: OutlinedButton(
           onPressed: isLoading ? null : onPressed,
           style: OutlinedButton.styleFrom(
             foregroundColor: textColor ?? AppTheme.primaryColor,
             side: BorderSide(color: textColor ?? AppTheme.primaryColor),
-            padding: padding ?? const EdgeInsets.symmetric(
-              horizontal: AppTheme.paddingL,
-              vertical: AppTheme.paddingM,
-            ),
+            padding: padding ?? buttonPadding,
             shape: RoundedRectangleBorder(
               borderRadius: borderRadius ?? BorderRadius.circular(AppTheme.radiusM),
             ),
@@ -57,16 +60,13 @@ class CustomButton extends StatelessWidget {
     
     return SizedBox(
       width: width,
-      height: height ?? 48,
+      height: height ?? buttonHeight,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor ?? AppTheme.primaryColor,
           foregroundColor: textColor ?? Colors.white,
-          padding: padding ?? const EdgeInsets.symmetric(
-            horizontal: AppTheme.paddingL,
-            vertical: AppTheme.paddingM,
-          ),
+          padding: padding ?? buttonPadding,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadius ?? BorderRadius.circular(AppTheme.radiusM),
           ),
@@ -74,6 +74,37 @@ class CustomButton extends StatelessWidget {
         child: _buildButtonContent(theme),
       ),
     );
+  }
+  
+  double _getButtonHeight() {
+    switch (size) {
+      case ButtonSize.small:
+        return 36;
+      case ButtonSize.medium:
+        return 48;
+      case ButtonSize.large:
+        return 56;
+    }
+  }
+  
+  EdgeInsetsGeometry _getButtonPadding() {
+    switch (size) {
+      case ButtonSize.small:
+        return const EdgeInsets.symmetric(
+          horizontal: AppTheme.paddingM,
+          vertical: AppTheme.paddingS,
+        );
+      case ButtonSize.medium:
+        return const EdgeInsets.symmetric(
+          horizontal: AppTheme.paddingL,
+          vertical: AppTheme.paddingM,
+        );
+      case ButtonSize.large:
+        return const EdgeInsets.symmetric(
+          horizontal: AppTheme.paddingXL,
+          vertical: AppTheme.paddingL,
+        );
+    }
   }
   
   Widget _buildButtonContent(ThemeData theme) {

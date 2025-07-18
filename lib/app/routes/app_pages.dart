@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import '../bindings/initial_binding.dart';
 import '../../features/auth/bindings/auth_binding.dart';
 import '../../features/auth/views/auth_view.dart';
+import '../../features/home/bindings/home_binding.dart';
+import '../../features/home/views/home_view.dart';
 import '../../core/services/auth_service.dart';
 
 
@@ -22,7 +24,7 @@ class AppPages {
     GetPage(
       name: Routes.home,
       page: () => const HomeView(),
-      binding: InitialBinding(),
+      binding: HomeBinding(),
       middlewares: [AuthMiddleware()],
     ),
     GetPage(

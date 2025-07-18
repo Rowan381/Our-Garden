@@ -103,6 +103,22 @@ class AppTheme {
     color: secondaryTextColor,
   );
   
+  // Text Theme
+  static TextTheme get textTheme => TextTheme(
+    headlineLarge: headlineLarge,
+    headlineMedium: headlineMedium,
+    headlineSmall: headlineSmall,
+    titleLarge: titleLarge,
+    titleMedium: titleMedium,
+    titleSmall: titleSmall,
+    bodyLarge: bodyLarge,
+    bodyMedium: bodyMedium,
+    bodySmall: bodySmall,
+    labelLarge: labelLarge,
+    labelMedium: labelMedium,
+    labelSmall: labelSmall,
+  );
+  
   // Light Theme
   static ThemeData get lightTheme => ThemeData(
     useMaterial3: true,

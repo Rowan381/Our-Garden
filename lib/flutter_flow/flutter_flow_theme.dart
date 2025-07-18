@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 abstract class FlutterFlowTheme {
   static FlutterFlowTheme of(BuildContext context) {
+    // For now, always return LightModeTheme
+    // TODO: Implement dark mode support based on context theme
     return LightModeTheme();
   }
 

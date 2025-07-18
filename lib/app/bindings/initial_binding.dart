@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
 import '../../core/services/auth_service.dart';
 import '../../core/services/api_service.dart';
+import '../../data/repositories/product_repository.dart';
+import '../../data/repositories/garden_repository.dart';
+import '../../data/repositories/task_repository.dart';
+import '../../data/repositories/user_repository.dart';
 
 class InitialBinding extends Bindings {
   @override
@@ -8,6 +12,12 @@ class InitialBinding extends Bindings {
     // Core services - these should be available throughout the app
     Get.lazyPut<AuthService>(() => AuthService(), fenix: true);
     Get.lazyPut<ApiService>(() => ApiService(), fenix: true);
+    
+    // Register repositories
+    Get.lazyPut<ProductRepository>(() => ProductRepository());
+    Get.lazyPut<GardenRepository>(() => GardenRepository());
+    Get.lazyPut<TaskRepository>(() => TaskRepository());
+    Get.lazyPut<UserRepository>(() => UserRepository());
     
     // Add other core services here as needed
     // Get.lazyPut<StorageService>(() => StorageService(), fenix: true);

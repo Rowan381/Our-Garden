@@ -7,13 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:collection/collection.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'dart:math' show pow, pi, sin;
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:json_path/json_path.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
-
-import '../main.dart';
-
 
 export 'keep_alive_wrapper.dart';
 export 'lat_lng.dart';
@@ -423,8 +421,10 @@ extension StringDocRef on String {
   DocumentReference get ref => FirebaseFirestore.instance.doc(this);
 }
 
-void setDarkModeSetting(BuildContext context, ThemeMode themeMode) =>
-    MyApp.of(context).setThemeMode(themeMode);
+void setDarkModeSetting(BuildContext context, ThemeMode themeMode) {
+  // Use GetX to change theme mode directly
+  Get.changeThemeMode(themeMode);
+}
 
 void showSnackbar(
   BuildContext context,
@@ -601,7 +601,8 @@ extension ListUniqueExt<T> on Iterable<T> {
   }
 }
 
-String getCurrentRoute(BuildContext context) =>
-    context.mounted ? MyApp.of(context).getRoute() : '';
-List<String> getCurrentRouteStack(BuildContext context) =>
-    context.mounted ? MyApp.of(context).getRouteStack() : [];
+String getCurrentRoute(BuildContext context) => Get.currentRoute;
+List<String> getCurrentRouteStack(BuildContext context) {
+  // Extract route stack from Get navigation history
+  return Get.routeTree.routes.map((route) => route.name).toList();
+}

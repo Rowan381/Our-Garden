@@ -10,7 +10,7 @@ import 'app/routes/app_pages.dart';
 import 'app/theme/app_theme.dart';
 import 'core/config/env_config.dart';
 import 'core/services/auth_service.dart';
-import 'core/services/api_service.dart';
+import 'firebase_options.dart';
 
 // Define environment values that will be used if .env file is not found
 Map<String, String> fallbackEnv = {
@@ -73,11 +73,13 @@ void main() async {
   }
 
   // Initialize Firebase
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  // Initialize GetX services
-  Get.put(AuthService());
-  Get.put(ApiService());
+  // Initialize core services immediately after Firebase
+  // This ensures they're available before any route middleware runs
+  Get.put<AuthService>(AuthService(), permanent: true);
 
   runApp(const MyApp());
 }

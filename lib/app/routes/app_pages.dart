@@ -8,7 +8,6 @@ import '../../features/home/bindings/home_binding.dart';
 import '../../features/home/views/home_view.dart';
 import '../../core/services/auth_service.dart';
 
-
 class AppPages {
   AppPages._();
 
@@ -69,18 +68,27 @@ abstract class Routes {
 class AuthMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
-    final authService = Get.find<AuthService>();
-    
-    // If user is not logged in and trying to access protected route
-    if (!authService.isLoggedIn && route != Routes.auth) {
-      return const RouteSettings(name: Routes.auth);
+    try {
+      final authService = Get.find<AuthService>();
+
+      // If user is not logged in and trying to access protected route
+      if (!authService.isLoggedIn && route != Routes.auth) {
+        return const RouteSettings(name: Routes.auth);
+      }
+
+      // If user is logged in and trying to access auth page
+      if (authService.isLoggedIn && route == Routes.auth) {
+        return const RouteSettings(name: Routes.home);
+      }
+
+      return null;
+    } catch (e) {
+      // If AuthService is not yet initialized, default to auth route
+      print('AuthMiddleware error: $e');
+      if (route != Routes.auth) {
+        return const RouteSettings(name: Routes.auth);
+      }
+      return null;
     }
-    
-    // If user is logged in and trying to access auth page
-    if (authService.isLoggedIn && route == Routes.auth) {
-      return const RouteSettings(name: Routes.home);
-    }
-    
-    return null;
   }
-} 
+}

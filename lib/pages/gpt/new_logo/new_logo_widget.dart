@@ -36,62 +36,77 @@ class _NewLogoWidgetState extends State<NewLogoWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final imageSize = screenWidth * 0.6; // 60% of screen width, max 250
     return Container(
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.asset(
-              'assets/images/applogoswhite-24.png',
-              width: 250.0,
-              height: 250.0,
-              fit: BoxFit.cover,
-            ),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.05, // 5% horizontal padding
+            vertical: 24.0,
           ),
-          Text(
-            'Sage',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  font: GoogleFonts.ibmPlexMono(
-                    fontWeight:
-                        FlutterFlowTheme.of(context).headlineMedium.fontWeight,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                  ),
-                  fontSize: 28.0,
-                  letterSpacing: 0.0,
-                  fontWeight:
-                      FlutterFlowTheme.of(context).headlineMedium.fontWeight,
-                  fontStyle:
-                      FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.asset(
+                  'assets/images/applogoswhite-24.png',
+                  width: imageSize > 250.0 ? 250.0 : imageSize,
+                  height: imageSize > 250.0 ? 250.0 : imageSize,
+                  fit: BoxFit.cover,
                 ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
-            child: Text(
-              'Ask Anything Plant Related',
-              style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    font: GoogleFonts.ibmPlexMono(
+              ),
+              SizedBox(height: 16.0),
+              Text(
+                'Sage',
+                style: FlutterFlowTheme.of(context).headlineMedium.override(
+                      font: GoogleFonts.ibmPlexMono(
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
+                      ),
+                      fontSize: 28.0,
+                      letterSpacing: 0.0,
                       fontWeight: FlutterFlowTheme.of(context)
                           .headlineMedium
                           .fontWeight,
                       fontStyle:
                           FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                     ),
-                    fontSize: 16.0,
-                    letterSpacing: 0.0,
-                    fontWeight:
-                        FlutterFlowTheme.of(context).headlineMedium.fontWeight,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                  ),
-            ),
+              ),
+              SizedBox(height: 8.0),
+              Text(
+                'Ask Anything Plant Related',
+                textAlign: TextAlign.center,
+                style: FlutterFlowTheme.of(context).headlineMedium.override(
+                      font: GoogleFonts.ibmPlexMono(
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
+                      ),
+                      fontSize: 16.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FlutterFlowTheme.of(context)
+                          .headlineMedium
+                          .fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                    ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

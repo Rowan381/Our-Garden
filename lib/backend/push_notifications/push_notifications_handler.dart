@@ -6,7 +6,7 @@ import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 
 final _handledMessageIds = <String?>{};
 
@@ -82,7 +82,7 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
   Widget build(BuildContext context) => _loading
       ? Container(
           color: Color(0x00FFFFFF),
-          child: Image.asset(
+          child: SvgPicture.asset(
             'assets/images/applogostransparent2-24.svg',
             fit: BoxFit.contain,
           ),

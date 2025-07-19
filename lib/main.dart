@@ -155,6 +155,11 @@ class _NavBarPageState extends State<NavBarPage> {
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    // Calculate icon size so that 5 icons + padding always fit
+    final iconSize =
+        (screenWidth - 40) / 6 > 35.0 ? 35.0 : (screenWidth - 40) / 6;
+
     return Scaffold(
       resizeToAvoidBottomInset: !widget.disableResizeToAvoidBottomInset,
       body: _currentPage ?? tabs[_currentPageName],
@@ -174,7 +179,7 @@ class _NavBarPageState extends State<NavBarPage> {
           BottomNavigationBarItem(
             icon: Icon(
               FFIcons.khome,
-              size: 35.0,
+              size: iconSize,
             ),
             label: '',
             tooltip: '',
@@ -182,7 +187,7 @@ class _NavBarPageState extends State<NavBarPage> {
           BottomNavigationBarItem(
             icon: Icon(
               FFIcons.kstore,
-              size: 35.0,
+              size: iconSize,
             ),
             label: '',
             tooltip: '',
@@ -190,7 +195,7 @@ class _NavBarPageState extends State<NavBarPage> {
           BottomNavigationBarItem(
             icon: Icon(
               FFIcons.ksagelogo,
-              size: 32.0,
+              size: iconSize,
             ),
             label: '',
             tooltip: '',
@@ -198,7 +203,7 @@ class _NavBarPageState extends State<NavBarPage> {
           BottomNavigationBarItem(
             icon: Icon(
               FFIcons.kleaf,
-              size: 35.0,
+              size: iconSize,
             ),
             label: '',
             tooltip: '',
@@ -206,7 +211,7 @@ class _NavBarPageState extends State<NavBarPage> {
           BottomNavigationBarItem(
             icon: Icon(
               FFIcons.kaccountCircle,
-              size: 35.0,
+              size: iconSize,
             ),
             label: '',
             tooltip: '',

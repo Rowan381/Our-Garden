@@ -385,8 +385,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     FlutterFlowTheme.of(context).secondaryBackground,
                 body: SafeArea(
                   top: true,
+                  child: SingleChildScrollView(
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Column(
                         mainAxisSize: MainAxisSize.min,
@@ -406,7 +406,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 15.0, 0.0, 10.0),
                                       child: Container(
-                                        width: 350.0,
+                                          width:
+                                              MediaQuery.of(context).size.width *
+                                                  0.9,
                                         height: 75.0,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.only(
@@ -533,7 +535,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                            ),
                                                                       ),
                                                                     ),
                                                                   ],
@@ -938,8 +939,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 10.0, 0.0, 20.0),
                                       child: Container(
-                                        width: 350.0,
-                                        height: 455.0,
+                                          width:
+                                              MediaQuery.of(context).size.width *
+                                                  0.9,
+                                          constraints: BoxConstraints(
+                                            maxHeight: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.6,
+                                          ),
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
@@ -951,6 +959,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 2.0,
                                           ),
                                         ),
+                                          child: SingleChildScrollView(
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
@@ -958,9 +967,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               alignment: AlignmentDirectional(
                                                   0.0, -1.0),
                                               child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
@@ -973,19 +985,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 11.0,
-                                                                0.0, 5.0),
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    11.0,
+                                                                    0.0,
+                                                                    5.0),
                                                     child: Text(
                                                       'OurMarket Produce For You',
                                                       textAlign:
                                                           TextAlign.center,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
+                                                          style: FlutterFlowTheme
+                                                                      .of(context)
                                                               .bodyMedium
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
+                                                                    font: GoogleFonts
                                                                         .inter(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
@@ -999,11 +1012,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 fontSize: 24.0,
                                                                 letterSpacing:
                                                                     0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight:
+                                                                        FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle:
+                                                                        FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontStyle,
@@ -1032,7 +1047,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             height: 360.0,
                                                             constraints:
                                                                 BoxConstraints(
-                                                              maxHeight: 415.0,
+                                                                  maxHeight:
+                                                                      415.0,
                                                             ),
                                                             decoration:
                                                                 BoxDecoration(),
@@ -1042,7 +1058,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 final filterByLocation =
                                                                     (functions.getProductsDistance(homePageProductRecordList.toList(), 1000.0, currentUserDocument?.location)?.toList() ??
                                                                             [])
-                                                                        .take(3)
+                                                                            .take(
+                                                                                3)
                                                                         .toList();
                                                                 if (filterByLocation
                                                                     .isEmpty) {
@@ -1077,12 +1094,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             MainAxisSize.max,
                                                                         children: [
                                                                           Container(
-                                                                            height:
-                                                                                103.5,
-                                                                            decoration:
-                                                                                BoxDecoration(),
-                                                                            child:
-                                                                                Padding(
+                                                                                height: 103.5,
+                                                                                decoration: BoxDecoration(),
+                                                                                child: Padding(
                                                                               padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                                                                               child: InkWell(
                                                                                 splashColor: Colors.transparent,
@@ -1224,7 +1238,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                                                       letterSpacing: 0.0,
                                                                                                                       fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                    ),
                                                                                                               ),
                                                                                                             ),
                                                                                                           ],
@@ -1319,10 +1332,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             ),
                                                                           ),
                                                                           Divider(
-                                                                            thickness:
-                                                                                2.0,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                                thickness: 2.0,
+                                                                                color: FlutterFlowTheme.of(context).primaryText,
                                                                           ),
                                                                         ],
                                                                       ),
@@ -1342,16 +1353,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     ProductRecord>>(
                                                               stream:
                                                                   queryProductRecord(
-                                                                queryBuilder:
-                                                                    (productRecord) =>
+                                                                    queryBuilder: (productRecord) =>
                                                                         productRecord
                                                                             .where(
                                                                               'seller',
-                                                                              isNotEqualTo: currentUserReference,
+                                                                              isNotEqualTo:
+                                                                                  currentUserReference,
                                                                             )
                                                                             .where(
                                                                               'isArchived',
-                                                                              isEqualTo: false,
+                                                                              isEqualTo:
+                                                                                  false,
                                                                             ),
                                                                 limit: 3,
                                                               ),
@@ -1371,8 +1383,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                           CircularProgressIndicator(
                                                                         valueColor:
                                                                             AlwaysStoppedAnimation<Color>(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .primary,
+                                                                                      FlutterFlowTheme.of(context).primary,
                                                                         ),
                                                                       ),
                                                                     ),
@@ -1415,12 +1426,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             MainAxisSize.max,
                                                                         children: [
                                                                           Container(
-                                                                            height:
-                                                                                103.5,
-                                                                            decoration:
-                                                                                BoxDecoration(),
-                                                                            child:
-                                                                                Padding(
+                                                                                height: 103.5,
+                                                                                decoration: BoxDecoration(),
+                                                                                child: Padding(
                                                                               padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                                                                               child: InkWell(
                                                                                 splashColor: Colors.transparent,
@@ -1564,7 +1572,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                                             ),
                                                                                                           ),
                                                                                                         ],
-                                                                                                      ),
                                                                                                     ),
                                                                                                   ),
                                                                                                 ),
@@ -1654,10 +1661,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             ),
                                                                           ),
                                                                           Divider(
-                                                                            thickness:
-                                                                                2.0,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                                thickness: 2.0,
+                                                                                color: FlutterFlowTheme.of(context).primaryText,
                                                                           ),
                                                                         ],
                                                                       ),
@@ -1678,9 +1683,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               alignment: AlignmentDirectional(
                                                   0.0, 1.0),
                                               child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
@@ -1689,7 +1697,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           .routeName);
                                                 },
                                                 child: Container(
-                                                  width: 350.0,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.9,
                                                   height: 43.0,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -1702,19 +1714,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 10.0),
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    10.0),
                                                     child: Text(
                                                       'View More',
                                                       textAlign:
                                                           TextAlign.center,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
+                                                          style: FlutterFlowTheme
+                                                                      .of(context)
                                                               .bodyMedium
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
+                                                                    font: GoogleFonts
                                                                         .inter(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
@@ -1728,11 +1741,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 fontSize: 24.0,
                                                                 letterSpacing:
                                                                     0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight:
+                                                                        FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle:
+                                                                        FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontStyle,
@@ -1746,83 +1761,110 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               ),
                                             ),
                                           ],
+                                            ),
                                         ),
                                       ),
                                     ),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 10.0, 150.0),
-                                    child: Container(
-                                      width: 350.0,
+                                          10.0,
+                                          0.0,
+                                          10.0,
+                                          24.0), // Reduce bottom padding for better fit
+                                      child: LayoutBuilder(
+                                        builder: (context, constraints) {
+                                          final screenWidth =
+                                              MediaQuery.of(context).size.width;
+                                          final containerWidth =
+                                              screenWidth * 0.95 > 400.0
+                                                  ? 400.0
+                                                  : screenWidth * 0.95;
+                                          return Container(
+                                            width: containerWidth,
                                       constraints: BoxConstraints(
-                                        maxHeight: 300.0,
+                                              maxHeight: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.5, // 50% of screen height
                                       ),
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(24.0),
                                       ),
+                                            child: SingleChildScrollView(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Align(
                                             alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                                        AlignmentDirectional(
+                                                            0.0, 0.0),
                                             child: Container(
-                                              width: 360.0,
+                                                      width: containerWidth,
                                               height: 50.0,
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.only(
+                                                        borderRadius:
+                                                            BorderRadius.only(
                                                   bottomLeft:
-                                                      Radius.circular(0.0),
+                                                              Radius.circular(
+                                                                  0.0),
                                                   bottomRight:
-                                                      Radius.circular(0.0),
+                                                              Radius.circular(
+                                                                  0.0),
                                                   topLeft:
-                                                      Radius.circular(24.0),
+                                                              Radius.circular(
+                                                                  24.0),
                                                   topRight:
-                                                      Radius.circular(24.0),
+                                                              Radius.circular(
+                                                                  24.0),
                                                 ),
                                                 border: Border.all(
-                                                  color: FlutterFlowTheme.of(
+                                                          color:
+                                                              FlutterFlowTheme.of(
                                                           context)
                                                       .secondary,
                                                   width: 2.0,
                                                 ),
                                               ),
-                                              alignment: AlignmentDirectional(
+                                                      alignment:
+                                                          AlignmentDirectional(
                                                   0.0, -1.0),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                        padding:
+                                                            EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 10.0, 0.0, 0.0),
+                                                                    0.0,
+                                                                    10.0,
+                                                                    0.0,
+                                                                    0.0),
                                                 child: Text(
                                                   'Today\'s Tasks',
-                                                  style: FlutterFlowTheme.of(
+                                                          style:
+                                                              FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
                                                       .override(
                                                         font: GoogleFonts
                                                             .ibmPlexMono(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                                      fontWeight: FlutterFlowTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                                      fontStyle: FlutterFlowTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
-                                                        fontSize: 24.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                                    fontSize:
+                                                                        24.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                                    fontStyle: FlutterFlowTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
@@ -1835,26 +1877,34 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             ),
                                           ),
                                           Container(
-                                            width: 360.0,
+                                                    width: containerWidth,
                                             constraints: BoxConstraints(
-                                              maxHeight: 350.0,
+                                                      maxHeight: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .height *
+                                                          0.4, // 40% of screen height
                                             ),
                                             decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
+                                                      color: FlutterFlowTheme.of(
+                                                              context)
                                                       .accent3,
                                             ),
                                             child: FutureBuilder<
                                                 List<GardensRecord>>(
-                                              future: queryGardensRecordOnce(
-                                                queryBuilder: (gardensRecord) =>
-                                                    gardensRecord.where(
+                                                      future:
+                                                          queryGardensRecordOnce(
+                                                        queryBuilder:
+                                                            (gardensRecord) =>
+                                                                gardensRecord
+                                                                    .where(
                                                   'uid',
-                                                  isEqualTo: currentUserUid,
+                                                          isEqualTo:
+                                                              currentUserUid,
                                                 ),
                                               ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
+                                                      builder:
+                                                          (context, snapshot) {
                                                 if (!snapshot.hasData) {
                                                   return Center(
                                                     child: SizedBox(
@@ -1876,15 +1926,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 List<GardensRecord>
                                                     columnGardensRecordList =
                                                     snapshot.data!;
-
                                                 return SingleChildScrollView(
                                                   primary: false,
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: List.generate(
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children:
+                                                                List.generate(
                                                         columnGardensRecordList
                                                             .length,
                                                         (columnIndex) {
@@ -1895,9 +1946,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         visible: (_model
                                                                 .userPlantTasks!
                                                                 .where((e) =>
-                                                                    (e.gardenCreatorRef ==
-                                                                        columnGardensRecord
-                                                                            .reference) &&
+                                                                              (e.gardenCreatorRef == columnGardensRecord.reference) &&
                                                                     functions.checkToday(
                                                                         e
                                                                             .startDate!,
@@ -1910,62 +1959,54 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             (_model
                                                                 .userGardenTasks!
                                                                 .where((e) =>
-                                                                    (e.gardenCreatorRef ==
-                                                                        columnGardensRecord
-                                                                            .reference) &&
+                                                                                (e.gardenCreatorRef == columnGardensRecord.reference) &&
                                                                     functions.checkToday(
                                                                         e.startDate!,
                                                                         e.frequencyNum,
                                                                         e.frequencyType))
                                                                 .toList()
                                                                 .isNotEmpty),
-                                                        child: Flexible(
-                                                          child: Container(
+                                                                  child:
+                                                                      Container(
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Color(
                                                                   0xFFD1F3FF),
                                                               border:
-                                                                  Border.all(
+                                                                          Border
+                                                                              .all(
                                                                 color: Color(
                                                                     0x3100ADEA),
-                                                                width: 2.0,
+                                                                        width:
+                                                                            2.0,
                                                               ),
                                                             ),
                                                             child:
                                                                 SingleChildScrollView(
-                                                              child: Column(
+                                                                          scrollDirection:
+                                                                              Axis.horizontal,
+                                                                          child:
+                                                                              Column(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .min,
                                                                 children: [
                                                                   Row(
                                                                     mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
+                                                                                    MainAxisSize.max,
                                                                     mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .start,
+                                                                                    MainAxisAlignment.start,
                                                                     children: [
                                                                       Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            -1.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              30.0,
-                                                                              15.0,
-                                                                              0.0,
-                                                                              15.0),
-                                                                          child:
-                                                                              Text(
+                                                                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                                                                    child: Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(30.0, 15.0, 0.0, 15.0),
+                                                                                      child: Text(
                                                                             columnGardensRecord.gardenName.maybeHandleOverflow(
                                                                               maxChars: 15,
                                                                               replacement: '…',
                                                                             ),
-                                                                            maxLines:
-                                                                                1,
+                                                                                        maxLines: 1,
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   font: GoogleFonts.ibmPlexMono(
                                                                                     fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -1980,32 +2021,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         ),
                                                                       ),
                                                                       Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            1.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              30.0,
-                                                                              0.0,
-                                                                              0.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              FlutterFlowIconButton(
-                                                                            borderRadius:
-                                                                                20.0,
-                                                                            borderWidth:
-                                                                                1.0,
-                                                                            buttonSize:
-                                                                                40.0,
-                                                                            icon:
-                                                                                Icon(
+                                                                                    alignment: AlignmentDirectional(1.0, 0.0),
+                                                                                    child: Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 0.0, 0.0),
+                                                                                      child: FlutterFlowIconButton(
+                                                                                        borderRadius: 20.0,
+                                                                                        borderWidth: 1.0,
+                                                                                        buttonSize: 40.0,
+                                                                                        icon: Icon(
                                                                               Icons.arrow_forward_ios,
                                                                               color: FlutterFlowTheme.of(context).primaryText,
                                                                               size: 24.0,
                                                                             ),
-                                                                            onPressed:
-                                                                                () async {
+                                                                                        onPressed: () async {
                                                                               context.pushNamed(
                                                                                 ViewGardenWidget.routeName,
                                                                                 queryParameters: {
@@ -2022,15 +2050,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     ],
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(
                                                                             10.0,
                                                                             0.0,
                                                                             0.0,
                                                                             0.0),
-                                                                    child: StreamBuilder<
-                                                                        List<
-                                                                            GardenTasksRecord>>(
+                                                                                child:
+                                                                                    StreamBuilder<List<GardenTasksRecord>>(
                                                                       stream:
                                                                           queryGardenTasksRecord(
                                                                         queryBuilder: (gardenTasksRecord) => gardenTasksRecord
@@ -2044,14 +2070,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             ),
                                                                       ),
                                                                       builder:
-                                                                          (context,
-                                                                              snapshot) {
+                                                                                          (context, snapshot) {
                                                                         // Customize what your widget looks like when it's loading.
-                                                                        if (!snapshot
-                                                                            .hasData) {
+                                                                                        if (!snapshot.hasData) {
                                                                           return Center(
-                                                                            child:
-                                                                                SizedBox(
+                                                                                            child: SizedBox(
                                                                               width: 50.0,
                                                                               height: 50.0,
                                                                               child: CircularProgressIndicator(
@@ -2062,18 +2085,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             ),
                                                                           );
                                                                         }
-                                                                        List<GardenTasksRecord>
-                                                                            todayTasksListGardenTasksRecordList =
-                                                                            snapshot.data!;
+                                                                                        List<GardenTasksRecord> todayTasksListGardenTasksRecordList = snapshot.data!;
 
                                                                         return Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: List.generate(
-                                                                              todayTasksListGardenTasksRecordList.length,
-                                                                              (todayTasksListIndex) {
-                                                                            final todayTasksListGardenTasksRecord =
-                                                                                todayTasksListGardenTasksRecordList[todayTasksListIndex];
+                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                          children: List.generate(todayTasksListGardenTasksRecordList.length, (todayTasksListIndex) {
+                                                                                            final todayTasksListGardenTasksRecord = todayTasksListGardenTasksRecordList[todayTasksListIndex];
                                                                             return Visibility(
                                                                               visible: functions.checkToday(todayTasksListGardenTasksRecord.startDate!, todayTasksListGardenTasksRecord.frequencyNum, todayTasksListGardenTasksRecord.frequencyType),
                                                                               child: Row(
@@ -2138,15 +2155,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(
                                                                             10.0,
                                                                             0.0,
                                                                             0.0,
                                                                             0.0),
-                                                                    child: StreamBuilder<
-                                                                        List<
-                                                                            PlantTasksRecord>>(
+                                                                                    child:
+                                                                                        StreamBuilder<List<PlantTasksRecord>>(
                                                                       stream:
                                                                           queryPlantTasksRecord(
                                                                         queryBuilder: (plantTasksRecord) => plantTasksRecord
@@ -2160,14 +2175,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             ),
                                                                       ),
                                                                       builder:
-                                                                          (context,
-                                                                              snapshot) {
+                                                                                          (context, snapshot) {
                                                                         // Customize what your widget looks like when it's loading.
-                                                                        if (!snapshot
-                                                                            .hasData) {
+                                                                                        if (!snapshot.hasData) {
                                                                           return Center(
-                                                                            child:
-                                                                                SizedBox(
+                                                                                            child: SizedBox(
                                                                               width: 50.0,
                                                                               height: 50.0,
                                                                               child: CircularProgressIndicator(
@@ -2178,18 +2190,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             ),
                                                                           );
                                                                         }
-                                                                        List<PlantTasksRecord>
-                                                                            todayTasksListPlantTasksRecordList =
-                                                                            snapshot.data!;
+                                                                                        List<PlantTasksRecord> todayTasksListPlantTasksRecordList = snapshot.data!;
 
                                                                         return Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: List.generate(
-                                                                              todayTasksListPlantTasksRecordList.length,
-                                                                              (todayTasksListIndex) {
-                                                                            final todayTasksListPlantTasksRecord =
-                                                                                todayTasksListPlantTasksRecordList[todayTasksListIndex];
+                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                          children: List.generate(todayTasksListPlantTasksRecordList.length, (todayTasksListIndex) {
+                                                                                            final todayTasksListPlantTasksRecord = todayTasksListPlantTasksRecordList[todayTasksListIndex];
                                                                             return Visibility(
                                                                               visible: functions.checkToday(todayTasksListPlantTasksRecord.startDate!, todayTasksListPlantTasksRecord.frequencyNum, todayTasksListPlantTasksRecord.frequencyType),
                                                                               child: Row(
@@ -2281,7 +2287,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           ),
                                                         ),
                                                       );
-                                                    }),
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                                   ),
                                                 );
                                               },
@@ -2293,47 +2311,39 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              if (Navigator.of(context)
-                                                  .canPop()) {
+                                      if (Navigator.of(context).canPop()) {
                                                 context.pop();
                                               }
-                                              context.pushNamed(
-                                                  TabsWidget.routeName);
+                                      context.pushNamed(TabsWidget.routeName);
                                             },
                                             child: Container(
-                                              width: 350.0,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.9,
                                               height: 49.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
+                                        color: FlutterFlowTheme.of(context)
                                                         .primaryBackground,
                                                 borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(24.0),
-                                                  bottomRight:
-                                                      Radius.circular(24.0),
+                                          bottomLeft: Radius.circular(24.0),
+                                          bottomRight: Radius.circular(24.0),
                                                   topLeft: Radius.circular(0.0),
-                                                  topRight:
-                                                      Radius.circular(0.0),
+                                          topRight: Radius.circular(0.0),
                                                 ),
                                                 border: Border.all(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                          color: FlutterFlowTheme.of(context)
                                                       .secondary,
                                                   width: 2.0,
                                                 ),
                                               ),
                                               child: Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
                                                 child: Text(
                                                   'View More',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
+                                          style: FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        font: GoogleFonts
-                                                            .ibmPlexMono(
+                                                font: GoogleFonts.ibmPlexMono(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -2348,24 +2358,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         fontSize: 24.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                    FlutterFlowTheme.of(context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                    FlutterFlowTheme.of(context)
                                                                 .bodyMedium
                                                                 .fontStyle,
                                                         decoration:
-                                                            TextDecoration
-                                                                .underline,
+                                                    TextDecoration.underline,
                                                       ),
                                                 ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
                                       ),
                                     ),
                                   ),

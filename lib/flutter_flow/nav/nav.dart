@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 
@@ -760,7 +761,7 @@ class FFRoute {
           final child = appStateNotifier.loading
               ? Container(
                   color: Color(0x00FFFFFF),
-                  child: Image.asset(
+                  child: SvgPicture.asset(
                     'assets/images/applogostransparent2-24.svg',
                     fit: BoxFit.contain,
                   ),

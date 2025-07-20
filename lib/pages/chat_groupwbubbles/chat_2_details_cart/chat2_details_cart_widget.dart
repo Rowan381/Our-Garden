@@ -534,23 +534,18 @@ class _Chat2DetailsCartWidgetState extends State<Chat2DetailsCartWidget> {
                                                                       .circular(
                                                                           12.0),
                                                             ),
-                                                            child: Visibility(
-                                                              visible:
-                                                                  columnPendingBasketRecord !=
-                                                                      null,
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            4.0),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .shopping_basket_rounded,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  size: 35.0,
-                                                                ),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(
+                                                                          4.0),
+                                                              child: Icon(
+                                                                Icons
+                                                                    .shopping_basket_rounded,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                size: 35.0,
                                                               ),
                                                             ),
                                                           ),

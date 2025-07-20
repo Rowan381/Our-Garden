@@ -11,6 +11,7 @@ import 'backend/firebase/firebase_config.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'index.dart';
+import '/pages/user_management/home_page/home_page_mvc_widget.dart';
 
 import 'backend/stripe/payment_manager.dart';
 
@@ -147,7 +148,7 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'HomePage': HomePageWidget(),
+      'HomePage': HomePageMVCWidget(),
       'MarketplaceExploreListings': MarketplaceExploreListingsWidget(),
       'GPT': GptWidget(),
       'Tabs': TabsWidget(),

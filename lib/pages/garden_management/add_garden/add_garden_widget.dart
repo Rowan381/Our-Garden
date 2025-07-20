@@ -107,7 +107,6 @@ class _AddGardenWidgetState extends State<AddGardenWidget> {
                   onPressed: () async {
                     var _shouldSetState = false;
                     if (_model.saveLoading) {
-                      if (_shouldSetState) safeSetState(() {});
                       return;
                     }
 

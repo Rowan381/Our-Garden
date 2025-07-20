@@ -13,6 +13,7 @@ import '/main.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 import '/index.dart';
+import '/pages/user_management/home_page/home_page_mvc_widget.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -409,15 +410,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => PostListingWidget(),
         ),
         FFRoute(
-          name: HomePageWidget.routeName,
-          path: HomePageWidget.routePath,
+          name: HomePageMVCWidget.routeName,
+          path: HomePageMVCWidget.routePath,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'HomePage')
-              : HomePageWidget(
+              : HomePageMVCWidget(
                   onTour: params.getParam(
-                    'onTour',
-                    ParamType.bool,
-                  ),
+                        'onTour',
+                        ParamType.bool,
+                      ) ??
+                      false,
                 ),
         ),
         FFRoute(

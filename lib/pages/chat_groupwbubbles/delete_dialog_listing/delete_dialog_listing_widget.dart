@@ -129,7 +129,7 @@ class _DeleteDialogListingWidgetState extends State<DeleteDialogListingWidget>
                 ),
                 MouseRegion(
                   opaque: false,
-                  cursor: MouseCursor.defer ?? MouseCursor.defer,
+                  cursor: MouseCursor.defer,
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,

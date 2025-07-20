@@ -48,7 +48,7 @@ class _UserListSmallWidgetState extends State<UserListSmallWidget> {
   Widget build(BuildContext context) {
     return MouseRegion(
       opaque: false,
-      cursor: MouseCursor.defer ?? MouseCursor.defer,
+      cursor: MouseCursor.defer,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 150),
         curve: Curves.easeInOut,

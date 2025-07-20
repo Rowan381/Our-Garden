@@ -114,7 +114,6 @@ class _AddCustomPlantWidgetState extends State<AddCustomPlantWidget> {
                     onPressed: () async {
                       var _shouldSetState = false;
                       if (_model.saveLoading) {
-                        if (_shouldSetState) safeSetState(() {});
                         return;
                       }
 

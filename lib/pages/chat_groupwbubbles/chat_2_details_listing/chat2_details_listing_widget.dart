@@ -185,12 +185,7 @@ class _Chat2DetailsListingWidgetState extends State<Chat2DetailsListingWidget> {
                                               BorderRadius.circular(8.0),
                                           child: Image.network(
                                             valueOrDefault<String>(
-                                              !(rowSingleUserProductRecord !=
-                                                      null)
-                                                  ? chat2DetailsListingUsersRecord
-                                                      .photoUrl
-                                                  : rowSingleUserProductRecord
-                                                      .image,
+                                              rowSingleUserProductRecord.image,
                                               'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/plantculture-mltpm2/assets/krb97ghfkdfv/applogostransparent2-24.png',
                                             ),
                                             width: 44.0,
@@ -394,7 +389,6 @@ class _Chat2DetailsListingWidgetState extends State<Chat2DetailsListingWidget> {
                       );
                     }
 
-                    final chatThreadComponentProductRecord = snapshot.data!;
 
                     return wrapWithModel(
                       model: _model.chatThreadComponentModel,

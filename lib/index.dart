@@ -62,8 +62,8 @@ export '/pages/garden_management/edit_garden_task/edit_garden_task_widget.dart'
     show EditGardenTaskWidget;
 export '/pages/marketplace/post_listing/post_listing_widget.dart'
     show PostListingWidget;
-export '/pages/user_management/home_page/home_page_widget.dart'
-    show HomePageWidget;
+export '/pages/user_management/home_page/home_page_mvc_widget.dart';
+export '/pages/user_management/home_page/home_page_widget.dart';
 export '/pages/marketplace/search_listings/search_listings_widget.dart'
     show SearchListingsWidget;
 export '/pages/garden_management/view_garden/view_garden_widget.dart'

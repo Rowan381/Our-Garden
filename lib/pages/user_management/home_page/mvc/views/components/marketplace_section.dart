@@ -32,14 +32,12 @@ class MarketplaceSection extends StatelessWidget {
               width: 2.0,
             ),
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                _buildMarketplaceHeader(context),
-                _buildMarketplaceContent(context),
-              ],
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildMarketplaceHeader(context),
+              _buildMarketplaceContent(context),
+            ],
           ),
         ),
       ),
@@ -81,75 +79,75 @@ class MarketplaceSection extends StatelessWidget {
   }
 
   Widget _buildMarketplaceContent(BuildContext context) {
-    return Flexible(
-      child: Container(
-        decoration: BoxDecoration(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Builder(
-              builder: (context) {
-                if (hasLocation) {
-                  return Container(
-                    height: 360.0,
-                    constraints: BoxConstraints(maxHeight: 415.0),
-                    decoration: BoxDecoration(),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.store,
-                            size: 60.0,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                          ),
-                          SizedBox(height: 16.0),
-                          Text(
-                            'Marketplace products will appear here',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontSize: 16.0,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                ),
-                          ),
-                        ],
-                      ),
+    return Container(
+      decoration: BoxDecoration(),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Builder(
+            builder: (context) {
+              if (hasLocation) {
+                return Container(
+                  height: 360.0,
+                  constraints: BoxConstraints(maxHeight: 415.0),
+                  decoration: BoxDecoration(),
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.store,
+                          size: 60.0,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                        ),
+                        SizedBox(height: 16.0),
+                        Text(
+                          'Marketplace products will appear here',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontSize: 16.0,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                              ),
+                        ),
+                      ],
                     ),
-                  );
-                } else {
-                  return Container(
-                    height: 200.0,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.location_off,
-                            size: 60.0,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                          ),
-                          SizedBox(height: 16.0),
-                          Text(
-                            'Enable location to see nearby products',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontSize: 16.0,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                ),
-                          ),
-                        ],
-                      ),
+                  ),
+                );
+              } else {
+                return Container(
+                  height: 200.0,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.location_off,
+                          size: 60.0,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                        ),
+                        SizedBox(height: 16.0),
+                        Text(
+                          'Enable location to see nearby products',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontSize: 16.0,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                              ),
+                        ),
+                      ],
                     ),
-                  );
-                }
-              },
-            ),
-          ],
-        ),
+                  ),
+                );
+              }
+            },
+          ),
+        ],
       ),
     );
   }

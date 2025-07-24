@@ -230,8 +230,7 @@ class _ListingDetailsWidgetState extends State<ListingDetailsWidget>
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(0.0),
                                   child: Image.network(
-                                    listingDetailsProductRecord.image ==
-                                                ''
+                                    listingDetailsProductRecord.image == ''
                                         ? 'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/plantculture-mltpm2/assets/krb97ghfkdfv/applogostransparent2-24.png'
                                         : listingDetailsProductRecord.image,
                                     width:
@@ -566,40 +565,52 @@ class _ListingDetailsWidgetState extends State<ListingDetailsWidget>
                                                   ),
                                                 });
                                               } else {
-                                                await PendingBasketRecord
-                                                    .collection
-                                                    .doc()
-                                                    .set({
-                                                  ...createPendingBasketRecordData(
-                                                    sellerRef:
-                                                        listingDetailsProductRecord
-                                                            .seller,
-                                                    buyerRef:
-                                                        currentUserReference,
-                                                  ),
-                                                  ...mapToFirestore(
-                                                    {
-                                                      'basketItems': [
-                                                        getBasketItemFirestoreData(
-                                                          createBasketItemStruct(
-                                                            productRef:
-                                                                listingDetailsProductRecord
-                                                                    .reference,
-                                                            quantity: _model
-                                                                .countControllerValue,
-                                                            pricepu:
-                                                                listingDetailsProductRecord
-                                                                    .price,
-                                                            clearUnsetFields:
-                                                                false,
-                                                            create: true,
-                                                          ),
-                                                          true,
-                                                        )
-                                                      ],
-                                                    },
-                                                  ),
-                                                });
+                                                try {
+                                                  await PendingBasketRecord
+                                                      .collection
+                                                      .doc()
+                                                      .set({
+                                                    ...createPendingBasketRecordData(
+                                                      sellerRef:
+                                                          listingDetailsProductRecord
+                                                              .seller,
+                                                      buyerRef:
+                                                          currentUserReference,
+                                                    ),
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'basketItems': [
+                                                          getBasketItemFirestoreData(
+                                                            createBasketItemStruct(
+                                                              productRef:
+                                                                  listingDetailsProductRecord
+                                                                      .reference,
+                                                              quantity: _model
+                                                                  .countControllerValue,
+                                                              pricepu:
+                                                                  listingDetailsProductRecord
+                                                                      .price,
+                                                              clearUnsetFields:
+                                                                  false,
+                                                              create: true,
+                                                            ),
+                                                            true,
+                                                          )
+                                                        ],
+                                                      },
+                                                    ),
+                                                  });
+                                                } catch (e) {
+                                                  if (mounted) {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                          content: Text(
+                                                              'Failed to add to basket: ${e.toString()}')),
+                                                    );
+                                                  }
+                                                }
                                               }
 
                                               if (_shouldSetState)
@@ -745,7 +756,7 @@ class _ListingDetailsWidgetState extends State<ListingDetailsWidget>
                                     ),
                                   ),
                                   if (listingDetailsProductRecord.description !=
-                                          '')
+                                      '')
                                     Divider(
                                       height: 16.0,
                                       thickness: 1.0,
@@ -753,7 +764,7 @@ class _ListingDetailsWidgetState extends State<ListingDetailsWidget>
                                           .alternate,
                                     ),
                                   if (listingDetailsProductRecord.description !=
-                                          '')
+                                      '')
                                     Align(
                                       alignment:
                                           AlignmentDirectional(-1.0, 0.0),
@@ -786,7 +797,7 @@ class _ListingDetailsWidgetState extends State<ListingDetailsWidget>
                                       ),
                                     ),
                                   if (listingDetailsProductRecord.description !=
-                                          '')
+                                      '')
                                     Container(
                                       width: 372.0,
                                       decoration: BoxDecoration(
@@ -1641,8 +1652,8 @@ class _ListingDetailsWidgetState extends State<ListingDetailsWidget>
                                                           valueOrDefault<
                                                               String>(
                                                             containerUsersRecord
-                                                                            .photoUrl !=
-                                                                        ''
+                                                                        .photoUrl !=
+                                                                    ''
                                                                 ? containerUsersRecord
                                                                     .photoUrl
                                                                 : 'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/qiGqyt5ktHa4wEBF2FEm/assets/m8y3kksvax1i/noProfile.webp',
@@ -1810,27 +1821,32 @@ class _ListingDetailsWidgetState extends State<ListingDetailsWidget>
                                                                         !(containerUsersRecord
                                                                             .likesUsers
                                                                             .isNotEmpty)) {
-                                                                      await containerUsersRecord
-                                                                          .reference
-                                                                          .update({
-                                                                        ...createUsersRecordData(
-                                                                          likes:
-                                                                              1,
-                                                                        ),
-                                                                        ...mapToFirestore(
-                                                                          {
-                                                                            'likesUsers':
-                                                                                FieldValue.arrayUnion([
-                                                                              currentUserReference
-                                                                            ]),
-                                                                          },
-                                                                        ),
-                                                                      });
+                                                                      try {
+                                                                        await containerUsersRecord
+                                                                            .reference
+                                                                            .update({
+                                                                          ...createUsersRecordData(
+                                                                            likes:
+                                                                                1,
+                                                                          ),
+                                                                          ...mapToFirestore(
+                                                                            {
+                                                                              'likesUsers': FieldValue.arrayUnion([
+                                                                                currentUserReference
+                                                                              ]),
+                                                                            },
+                                                                          ),
+                                                                        });
+                                                                      } catch (e) {
+                                                                        if (mounted) {
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(
+                                                                            SnackBar(content: Text('Failed to like: ${e.toString()}')),
+                                                                          );
+                                                                        }
+                                                                      }
                                                                     } else {
-                                                                      if (containerUsersRecord
-                                                                              .likesUsers
-                                                                              .contains(currentUserReference) !=
-                                                                          true) {
+                                                                      try {
                                                                         await containerUsersRecord
                                                                             .reference
                                                                             .update({
@@ -1843,6 +1859,13 @@ class _ListingDetailsWidgetState extends State<ListingDetailsWidget>
                                                                             },
                                                                           ),
                                                                         });
+                                                                      } catch (e) {
+                                                                        if (mounted) {
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(
+                                                                            SnackBar(content: Text('Failed to like: ${e.toString()}')),
+                                                                          );
+                                                                        }
                                                                       }
                                                                     }
                                                                   },
@@ -1959,7 +1982,7 @@ class _ListingDetailsWidgetState extends State<ListingDetailsWidget>
                                                             onPressed:
                                                                 () async {
                                                               if (currentUserEmail !=
-                                                                      '') {
+                                                                  '') {
                                                                 _model.addToUsers(
                                                                     listingDetailsProductRecord
                                                                         .seller!);
@@ -1975,95 +1998,103 @@ class _ListingDetailsWidgetState extends State<ListingDetailsWidget>
                                                                     ChatsRecord
                                                                         .collection
                                                                         .doc();
-                                                                await chatsRecordReference
-                                                                    .set({
-                                                                  ...createChatsRecordData(
-                                                                    userB: listingDetailsProductRecord
-                                                                        .seller,
-                                                                    lastMessage:
-                                                                        '',
-                                                                    lastMessageTime:
-                                                                        getCurrentTimestamp,
-                                                                    lastMessageSentBy:
-                                                                        currentUserReference,
-                                                                    groupChatId:
-                                                                        random_data.randomInteger(
-                                                                            1000000,
-                                                                            9999999),
-                                                                    productRef:
-                                                                        listingDetailsProductRecord
-                                                                            .reference,
-                                                                    isListingMessage:
-                                                                        true,
-                                                                    isEmptyChat:
-                                                                        true,
-                                                                    userA:
-                                                                        currentUserReference,
-                                                                  ),
-                                                                  ...mapToFirestore(
-                                                                    {
-                                                                      'users':
-                                                                          _model
-                                                                              .users,
-                                                                    },
-                                                                  ),
-                                                                });
-                                                                _model.newListingChatThread2 =
-                                                                    ChatsRecord
-                                                                        .getDocumentFromData({
-                                                                  ...createChatsRecordData(
-                                                                    userB: listingDetailsProductRecord
-                                                                        .seller,
-                                                                    lastMessage:
-                                                                        '',
-                                                                    lastMessageTime:
-                                                                        getCurrentTimestamp,
-                                                                    lastMessageSentBy:
-                                                                        currentUserReference,
-                                                                    groupChatId:
-                                                                        random_data.randomInteger(
-                                                                            1000000,
-                                                                            9999999),
-                                                                    productRef:
-                                                                        listingDetailsProductRecord
-                                                                            .reference,
-                                                                    isListingMessage:
-                                                                        true,
-                                                                    isEmptyChat:
-                                                                        true,
-                                                                    userA:
-                                                                        currentUserReference,
-                                                                  ),
-                                                                  ...mapToFirestore(
-                                                                    {
-                                                                      'users':
-                                                                          _model
-                                                                              .users,
-                                                                    },
-                                                                  ),
-                                                                }, chatsRecordReference);
-
-                                                                context
-                                                                    .pushNamed(
-                                                                  Chat2DetailsListingWidget
-                                                                      .routeName,
-                                                                  queryParameters:
-                                                                      {
-                                                                    'chatRef':
-                                                                        serializeParam(
-                                                                      _model
-                                                                          .newListingChatThread2,
-                                                                      ParamType
-                                                                          .Document,
+                                                                try {
+                                                                  await chatsRecordReference
+                                                                      .set({
+                                                                    ...createChatsRecordData(
+                                                                      userB: listingDetailsProductRecord
+                                                                          .seller,
+                                                                      lastMessage:
+                                                                          '',
+                                                                      lastMessageTime:
+                                                                          getCurrentTimestamp,
+                                                                      lastMessageSentBy:
+                                                                          currentUserReference,
+                                                                      groupChatId: random_data.randomInteger(
+                                                                          1000000,
+                                                                          9999999),
+                                                                      productRef:
+                                                                          listingDetailsProductRecord
+                                                                              .reference,
+                                                                      isListingMessage:
+                                                                          true,
+                                                                      isEmptyChat:
+                                                                          true,
+                                                                      userA:
+                                                                          currentUserReference,
                                                                     ),
-                                                                  }.withoutNulls,
-                                                                  extra: <String,
-                                                                      dynamic>{
-                                                                    'chatRef':
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'users':
+                                                                            _model.users,
+                                                                      },
+                                                                    ),
+                                                                  });
+                                                                  _model.newListingChatThread2 =
+                                                                      ChatsRecord
+                                                                          .getDocumentFromData({
+                                                                    ...createChatsRecordData(
+                                                                      userB: listingDetailsProductRecord
+                                                                          .seller,
+                                                                      lastMessage:
+                                                                          '',
+                                                                      lastMessageTime:
+                                                                          getCurrentTimestamp,
+                                                                      lastMessageSentBy:
+                                                                          currentUserReference,
+                                                                      groupChatId: random_data.randomInteger(
+                                                                          1000000,
+                                                                          9999999),
+                                                                      productRef:
+                                                                          listingDetailsProductRecord
+                                                                              .reference,
+                                                                      isListingMessage:
+                                                                          true,
+                                                                      isEmptyChat:
+                                                                          true,
+                                                                      userA:
+                                                                          currentUserReference,
+                                                                    ),
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'users':
+                                                                            _model.users,
+                                                                      },
+                                                                    ),
+                                                                  }, chatsRecordReference);
+
+                                                                  context
+                                                                      .pushNamed(
+                                                                    Chat2DetailsListingWidget
+                                                                        .routeName,
+                                                                    queryParameters:
+                                                                        {
+                                                                      'chatRef':
+                                                                          serializeParam(
                                                                         _model
                                                                             .newListingChatThread2,
-                                                                  },
-                                                                );
+                                                                        ParamType
+                                                                            .Document,
+                                                                      ),
+                                                                    }.withoutNulls,
+                                                                    extra: <String,
+                                                                        dynamic>{
+                                                                      'chatRef':
+                                                                          _model
+                                                                              .newListingChatThread2,
+                                                                    },
+                                                                  );
+                                                                } catch (e) {
+                                                                  if (mounted) {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                          content:
+                                                                              Text('Failed to start chat: ${e.toString()}')),
+                                                                    );
+                                                                  }
+                                                                }
                                                               } else {
                                                                 context.pushNamed(
                                                                     LogInPageWidget

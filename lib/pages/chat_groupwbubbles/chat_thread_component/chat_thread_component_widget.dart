@@ -414,7 +414,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                             ChatMessagesRecord.collection.doc();
                                         await chatMessagesRecordReference
                                             .set(createChatMessagesRecordData(
-                                          user: currentUserReference,
+                                          user: currentUserReference as DocumentReference<Object?>,
                                           chat: widget.chatDoc?.reference,
                                           text: _model.textController.text,
                                           timestamp: getCurrentTimestamp,
@@ -424,7 +424,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                         _model.newChatCopy = ChatMessagesRecord
                                             .getDocumentFromData(
                                                 createChatMessagesRecordData(
-                                                  user: currentUserReference,
+                                                  user: currentUserReference as DocumentReference<Object?>,
                                                   chat: widget
                                                       .chatDoc?.reference,
                                                   text: _model
@@ -442,7 +442,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                         // We will then set the value of the user reference list from this page state.
                                         // addMyUserToList
                                         _model.addToLastSeenBy(
-                                            currentUserReference!);
+                                            currentUserReference! as DocumentReference<Object?>);
                                         triggerPushNotification(
                                           notificationTitle:
                                               currentUserDisplayName,
@@ -471,7 +471,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                             lastMessageTime:
                                                 getCurrentTimestamp,
                                             lastMessageSentBy:
-                                                currentUserReference,
+                                                currentUserReference as DocumentReference<Object?>,
                                             lastMessage: valueOrDefault<String>(
                                               _model.textController.text,
                                               '--',
@@ -764,7 +764,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                           firestoreBatch.set(
                                               chatMessagesRecordReference,
                                               createChatMessagesRecordData(
-                                                user: currentUserReference,
+                                                user: currentUserReference as DocumentReference<Object?>,
                                                 chat:
                                                     widget.chatDoc?.reference,
                                                 text:
@@ -776,7 +776,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                           _model.newChat = ChatMessagesRecord
                                               .getDocumentFromData(
                                                   createChatMessagesRecordData(
-                                                    user: currentUserReference,
+                                                    user: currentUserReference as DocumentReference<Object?>,
                                                     chat: widget
                                                         .chatDoc?.reference,
                                                     text: _model
@@ -794,7 +794,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                           // We will then set the value of the user reference list from this page state.
                                           // addMyUserToList
                                           _model.addToLastSeenBy(
-                                              currentUserReference!);
+                                              currentUserReference! as DocumentReference<Object?>);
                                           triggerPushNotification(
                                             notificationTitle:
                                                 currentUserDisplayName,
@@ -823,7 +823,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                               lastMessageTime:
                                                   getCurrentTimestamp,
                                               lastMessageSentBy:
-                                                  currentUserReference,
+                                                  currentUserReference as DocumentReference<Object?>,
                                               lastMessage:
                                                   valueOrDefault<String>(
                                                 _model.textController.text,

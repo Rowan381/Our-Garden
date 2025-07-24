@@ -23,20 +23,73 @@ class PushNotificationsHandler extends StatefulWidget {
 
 class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
   bool _loading = false;
+  bool _firebaseInitialized = false;
+
+  // Method to wait for Firebase initialization with retry
+  Future<bool> _waitForFirebaseInitialization({int maxRetries = 5}) async {
+    if (_firebaseInitialized) return true;
+
+    try {
+      // Fallback to retry approach
+      int retries = 0;
+      while (!_firebaseInitialized && retries < maxRetries) {
+        try {
+          // Check if Firebase is initialized by trying to access messaging
+          await FirebaseMessaging.instance.getToken();
+          _firebaseInitialized = true;
+          print('Firebase is now initialized in PushNotificationsHandler');
+          return true;
+        } catch (e) {
+          retries++;
+          if (retries >= maxRetries) {
+            print('Max retries reached waiting for Firebase initialization');
+            return false;
+          }
+          // Wait before retrying
+          await Future.delayed(Duration(milliseconds: 500 * retries));
+        }
+      }
+      return _firebaseInitialized;
+    } catch (e) {
+      print('Error waiting for Firebase initialization: $e');
+      return false;
+    }
+  }
 
   Future handleOpenedPushNotification() async {
     if (isWeb) {
       return;
     }
 
-    final notification = await FirebaseMessaging.instance.getInitialMessage();
-    if (notification != null) {
-      await _handlePushNotification(notification);
+    try {
+      // Check if Firebase is available yet
+      if (!_firebaseInitialized) {
+        // Wait for Firebase to initialize
+        await _waitForFirebaseInitialization();
+        if (!_firebaseInitialized) {
+          print(
+              'Firebase not initialized yet, skipping push notification handling');
+          return;
+        }
+      }
+
+      final notification = await FirebaseMessaging.instance.getInitialMessage();
+      if (notification != null) {
+        await _handlePushNotification(notification);
+      }
+      FirebaseMessaging.onMessageOpenedApp.listen(_handlePushNotification);
+    } catch (e) {
+      print('Error in handleOpenedPushNotification: $e');
     }
-    FirebaseMessaging.onMessageOpenedApp.listen(_handlePushNotification);
   }
 
   Future _handlePushNotification(RemoteMessage message) async {
+    if (!_firebaseInitialized) {
+      print(
+          'Firebase not initialized yet, skipping push notification handling');
+      return;
+    }
+
     if (_handledMessageIds.contains(message.messageId)) {
       return;
     }
@@ -64,7 +117,7 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
         }
       }
     } catch (e) {
-      print('Error: $e');
+      print('Error handling push notification: $e');
     } finally {
       safeSetState(() => _loading = false);
     }
@@ -73,8 +126,14 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
   @override
   void initState() {
     super.initState();
+    // Use a post-frame callback to ensure the UI is rendered first
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      handleOpenedPushNotification();
+      // Wrap in try-catch to handle any exceptions
+      try {
+        handleOpenedPushNotification();
+      } catch (e) {
+        print('Error initializing push notifications: $e');
+      }
     });
   }
 

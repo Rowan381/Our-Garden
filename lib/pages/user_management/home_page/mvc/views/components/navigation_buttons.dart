@@ -28,7 +28,7 @@ class NavigationButtons extends StatelessWidget {
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 4.0, 0.0),
             child: Row(
-              mainAxisSize: MainAxisSize.max,
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildNavigationCard(
@@ -81,7 +81,7 @@ class NavigationButtons extends StatelessWidget {
             ),
           ),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(

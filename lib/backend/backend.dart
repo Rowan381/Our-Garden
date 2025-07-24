@@ -110,25 +110,25 @@ Future<FFFirestorePage<OrdersRecord>> queryOrdersRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<OrdersRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -188,25 +188,25 @@ Future<FFFirestorePage<AIsavedChatsRecord>> queryAIsavedChatsRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<AIsavedChatsRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -266,25 +266,25 @@ Future<FFFirestorePage<Chats2Record>> queryChats2RecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<Chats2Record> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -344,25 +344,25 @@ Future<FFFirestorePage<PendingBasketRecord>> queryPendingBasketRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<PendingBasketRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -422,25 +422,25 @@ Future<FFFirestorePage<CommonPlantsRecord>> queryCommonPlantsRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<CommonPlantsRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -500,25 +500,25 @@ Future<FFFirestorePage<ReviewsRecord>> queryReviewsRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<ReviewsRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -582,25 +582,25 @@ Future<FFFirestorePage<EngagedWithRecord>> queryEngagedWithRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<EngagedWithRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -660,25 +660,25 @@ Future<FFFirestorePage<CustomSpeciesRecord>> queryCustomSpeciesRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<CustomSpeciesRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -738,25 +738,25 @@ Future<FFFirestorePage<FiltersRecord>> queryFiltersRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<FiltersRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -816,25 +816,25 @@ Future<FFFirestorePage<ChatsRecord>> queryChatsRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<ChatsRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -894,25 +894,25 @@ Future<FFFirestorePage<PlantsRecord>> queryPlantsRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<PlantsRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -972,25 +972,25 @@ Future<FFFirestorePage<ChatMessagesRecord>> queryChatMessagesRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<ChatMessagesRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -1052,25 +1052,25 @@ Future<FFFirestorePage<NotificationSettingsRecord>>
           pageSize: pageSize,
           isStream: isStream,
         ).then((page) {
-          controller.appendPage(
-            page.data,
-            page.nextPageMarker,
-          );
+          // controller.appendPage(
+          //   page.data,
+          //   page.nextPageMarker,
+          // );
           if (isStream) {
             final streamSubscription = (page.dataStream)
                 ?.listen((List<NotificationSettingsRecord> data) {
               data.forEach((item) {
-                final itemIndexes = controller.itemList!
-                    .asMap()
-                    .map((k, v) => MapEntry(v.reference.id, k));
-                final index = itemIndexes[item.reference.id];
-                final items = controller.itemList!;
-                if (index != null) {
-                  items.replaceRange(index, index + 1, [item]);
-                  controller.itemList = {
-                    for (var item in items) item.reference: item
-                  }.values.toList();
-                }
+                // final itemIndexes = controller.itemList!
+                //     .asMap()
+                //     .map((k, v) => MapEntry(v.reference.id, k));
+                // final index = itemIndexes[item.reference.id];
+                // final items = controller.itemList!;
+                // if (index != null) {
+                //   items.replaceRange(index, index + 1, [item]);
+                //   controller.itemList = {
+                //     for (var item in items) item.reference: item
+                //   }.values.toList();
+                // }
               });
             });
             streamSubscriptions?.add(streamSubscription);
@@ -1130,25 +1130,25 @@ Future<FFFirestorePage<GardenTasksRecord>> queryGardenTasksRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<GardenTasksRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -1208,25 +1208,25 @@ Future<FFFirestorePage<ProductRecord>> queryProductRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<ProductRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -1286,25 +1286,25 @@ Future<FFFirestorePage<AIsuggestedQsRecord>> queryAIsuggestedQsRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<AIsuggestedQsRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -1366,25 +1366,25 @@ Future<FFFirestorePage<CommonPlantsQueryRecord>>
           pageSize: pageSize,
           isStream: isStream,
         ).then((page) {
-          controller.appendPage(
-            page.data,
-            page.nextPageMarker,
-          );
+          // controller.appendPage(
+          //   page.data,
+          //   page.nextPageMarker,
+          // );
           if (isStream) {
             final streamSubscription =
                 (page.dataStream)?.listen((List<CommonPlantsQueryRecord> data) {
               data.forEach((item) {
-                final itemIndexes = controller.itemList!
-                    .asMap()
-                    .map((k, v) => MapEntry(v.reference.id, k));
-                final index = itemIndexes[item.reference.id];
-                final items = controller.itemList!;
-                if (index != null) {
-                  items.replaceRange(index, index + 1, [item]);
-                  controller.itemList = {
-                    for (var item in items) item.reference: item
-                  }.values.toList();
-                }
+                // final itemIndexes = controller.itemList!
+                //     .asMap()
+                //     .map((k, v) => MapEntry(v.reference.id, k));
+                // final index = itemIndexes[item.reference.id];
+                // final items = controller.itemList!;
+                // if (index != null) {
+                //   items.replaceRange(index, index + 1, [item]);
+                //   controller.itemList = {
+                //     for (var item in items) item.reference: item
+                //   }.values.toList();
+                // }
               });
             });
             streamSubscriptions?.add(streamSubscription);
@@ -1448,25 +1448,25 @@ Future<FFFirestorePage<ChatsMessagesRecord>> queryChatsMessagesRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<ChatsMessagesRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -1526,25 +1526,25 @@ Future<FFFirestorePage<GardensRecord>> queryGardensRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<GardensRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -1604,25 +1604,25 @@ Future<FFFirestorePage<PlantTasksRecord>> queryPlantTasksRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<PlantTasksRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -1682,25 +1682,25 @@ Future<FFFirestorePage<UsersRecord>> queryUsersRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     ).then((page) {
-      controller.appendPage(
-        page.data,
-        page.nextPageMarker,
-      );
+      // controller.appendPage(
+      //   page.data,
+      //   page.nextPageMarker,
+      // );
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<UsersRecord> data) {
           data.forEach((item) {
-            final itemIndexes = controller.itemList!
-                .asMap()
-                .map((k, v) => MapEntry(v.reference.id, k));
-            final index = itemIndexes[item.reference.id];
-            final items = controller.itemList!;
-            if (index != null) {
-              items.replaceRange(index, index + 1, [item]);
-              controller.itemList = {
-                for (var item in items) item.reference: item
-              }.values.toList();
-            }
+            // final itemIndexes = controller.itemList!
+            //     .asMap()
+            //     .map((k, v) => MapEntry(v.reference.id, k));
+            // final index = itemIndexes[item.reference.id];
+            // final items = controller.itemList!;
+            // if (index != null) {
+            //   items.replaceRange(index, index + 1, [item]);
+            //   controller.itemList = {
+            //     for (var item in items) item.reference: item
+            //   }.values.toList();
+            // }
           });
         });
         streamSubscriptions?.add(streamSubscription);
@@ -1719,9 +1719,11 @@ Future<int> queryCollectionCount(
     query = query.limit(limit);
   }
 
-  return query.count().get().catchError((err) {
+  return query.count().get().then((value) => value.count!).catchError((err) {
     print('Error querying $collection: $err');
-  }).then((value) => value.count!);
+    // Return 0 as a fallback value when there's an error
+    return 0;
+  });
 }
 
 Stream<List<T>> queryCollection<T>(
@@ -1738,6 +1740,8 @@ Stream<List<T>> queryCollection<T>(
   }
   return query.snapshots().handleError((err) {
     print('Error querying $collection: $err');
+    // Return an empty list when there's an error to keep the stream going
+    return [];
   }).map((s) => s.docs
       .map(
         (d) => safeGet(
@@ -1845,30 +1849,58 @@ Future<FFFirestorePage<T>> queryCollectionPage<T>(
 
 // Creates a Firestore document representing the logged in user if it doesn't yet exist
 Future maybeCreateUser(User user) async {
-  final userRecord = UsersRecord.collection.doc(user.uid);
-  final userExists = await userRecord.get().then((u) => u.exists);
-  if (userExists) {
-    currentUserDocument = await UsersRecord.getDocumentOnce(userRecord);
-    return;
+  try {
+    final userRecord = UsersRecord.collection.doc(user.uid);
+    final userExists = await userRecord.get().then((u) => u.exists);
+    if (userExists) {
+      try {
+        currentUserDocument = await UsersRecord.getDocumentOnce(userRecord);
+      } catch (e) {
+        print('Error fetching current user: $e');
+        // Create a minimal user document to prevent crashes
+        currentUserDocument = null;
+      }
+      return;
+    }
+
+    final userData = createUsersRecordData(
+      email: user.email ??
+          FirebaseAuth.instance.currentUser?.email ??
+          user.providerData.firstOrNull?.email,
+      displayName:
+          user.displayName ?? FirebaseAuth.instance.currentUser?.displayName,
+      photoUrl: user.photoURL,
+      uid: user.uid,
+      phoneNumber: user.phoneNumber,
+      createdTime: getCurrentTimestamp,
+    );
+
+    try {
+      await userRecord.set(userData);
+      currentUserDocument =
+          UsersRecord.getDocumentFromData(userData, userRecord);
+    } catch (e) {
+      print('Error creating user document: $e');
+      // Create a minimal user document to prevent crashes
+      currentUserDocument = null;
+    }
+  } catch (e) {
+    print('Error in maybeCreateUser: $e');
+    // Ensure we don't crash the app
+    currentUserDocument = null;
   }
-
-  final userData = createUsersRecordData(
-    email: user.email ??
-        FirebaseAuth.instance.currentUser?.email ??
-        user.providerData.firstOrNull?.email,
-    displayName:
-        user.displayName ?? FirebaseAuth.instance.currentUser?.displayName,
-    photoUrl: user.photoURL,
-    uid: user.uid,
-    phoneNumber: user.phoneNumber,
-    createdTime: getCurrentTimestamp,
-  );
-
-  await userRecord.set(userData);
-  currentUserDocument = UsersRecord.getDocumentFromData(userData, userRecord);
 }
 
 Future updateUserDocument({String? email}) async {
-  await currentUserDocument?.reference
-      .update(createUsersRecordData(email: email));
+  try {
+    if (currentUserDocument?.reference != null) {
+      await currentUserDocument!.reference
+          .update(createUsersRecordData(email: email));
+    } else {
+      print('Warning: Cannot update user document because reference is null');
+    }
+  } catch (e) {
+    print('Error updating user document: $e');
+    // Continue execution to prevent app crashes
+  }
 }

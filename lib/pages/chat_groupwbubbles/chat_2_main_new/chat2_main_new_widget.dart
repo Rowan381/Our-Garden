@@ -310,7 +310,7 @@ class _Chat2MainNewWidgetState extends State<Chat2MainNewWidget>
                                                         'chatDoc':
                                                             serializeParam(
                                                           listViewChatsRecord,
-                                                          ParamType.Document,
+                                                          ParamType.String,
                                                         ),
                                                       }.withoutNulls,
                                                       extra: <String, dynamic>{
@@ -326,7 +326,7 @@ class _Chat2MainNewWidgetState extends State<Chat2MainNewWidget>
                                                         'chatRef':
                                                             serializeParam(
                                                           listViewChatsRecord,
-                                                          ParamType.Document,
+                                                          ParamType.String,
                                                         ),
                                                       }.withoutNulls,
                                                       extra: <String, dynamic>{
@@ -748,7 +748,7 @@ class _Chat2MainNewWidgetState extends State<Chat2MainNewWidget>
                                                   queryParameters: {
                                                     'chatRef': serializeParam(
                                                       listViewChatsRecord,
-                                                      ParamType.Document,
+                                                      ParamType.String,
                                                     ),
                                                   }.withoutNulls,
                                                   extra: <String, dynamic>{

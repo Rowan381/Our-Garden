@@ -90,7 +90,7 @@ class HomePageHeader extends StatelessWidget {
                 alignment: AlignmentDirectional(0.0, 0.0),
                 child: SingleChildScrollView(
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Align(
                         alignment: AlignmentDirectional(-0.01, 0.42),
@@ -151,7 +151,7 @@ class HomePageHeader extends StatelessWidget {
                 alignment: AlignmentDirectional(0.0, 0.0),
                 child: SingleChildScrollView(
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

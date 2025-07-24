@@ -49,9 +49,9 @@ class FirebaseAuthManager extends AuthManager
         GithubSignInManager,
         PhoneSignInManager {
   // Set when using phone verification (after phone number is provided).
-  String? _phoneAuthVerificationCode;
+  // Using phoneAuthManager.phoneAuthVerificationCode instead
   // Set when using phone sign in in web mode (ignored otherwise).
-  ConfirmationResult? _webPhoneAuthConfirmationResult;
+  // Using phoneAuthManager.webPhoneAuthConfirmationResult instead
   FirebasePhoneAuthManager phoneAuthManager = FirebasePhoneAuthManager();
 
   @override
@@ -103,7 +103,6 @@ class FirebaseAuthManager extends AuthManager
     }
   }
 
-  @override
   Future updatePassword({
     required String newPassword,
     required BuildContext context,
@@ -179,7 +178,12 @@ class FirebaseAuthManager extends AuthManager
 
   @override
   Future<BaseAuthUser?> signInWithGoogle(BuildContext context) =>
-      _signInOrCreateAccount(context, googleSignInFunc, 'GOOGLE');
+      _signInOrCreateAccount(context, () => googleSignInFunc(), 'GOOGLE');
+
+  // Future<UserCredential?> signInWithGoogleUserCredential(BuildContext context) {
+  //   // Use the googleSignInFunc which returns UserCredential
+  //   return googleSignInFunc();
+  // }
 
   @override
   Future<BaseAuthUser?> signInWithGithub(BuildContext context) =>

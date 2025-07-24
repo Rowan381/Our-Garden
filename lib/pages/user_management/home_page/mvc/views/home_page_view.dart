@@ -17,6 +17,7 @@ class HomePageView extends StatefulWidget {
 class _HomePageViewState extends State<HomePageView> {
   late HomePageController _controller;
   bool _isLoading = true;
+  String? _errorMessage;
 
   @override
   void initState() {
@@ -26,11 +27,27 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Future<void> _initializePage() async {
-    await _controller.initializePage();
-    if (mounted) {
+    try {
       setState(() {
-        _isLoading = false;
+        _isLoading = true;
+        _errorMessage = null;
       });
+
+      await _controller.initializePage();
+    } catch (e) {
+      debugPrint('Homepage initialization failed: $e');
+      if (mounted) {
+        setState(() {
+          _errorMessage =
+              'Failed to load homepage data. Please check your connection and try again.';
+        });
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -42,12 +59,53 @@ class _HomePageViewState extends State<HomePageView> {
 
   @override
   Widget build(BuildContext context) {
+    // Update controller context for each build
+    _controller.updateContext(context);
+
     if (_isLoading) {
       return Scaffold(
         body: Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(
               FlutterFlowTheme.of(context).primary,
+            ),
+          ),
+        ),
+      );
+    }
+
+    if (_errorMessage != null) {
+      return Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: 64.0,
+                  color: FlutterFlowTheme.of(context).error,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  _errorMessage!,
+                  textAlign: TextAlign.center,
+                  style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
+                        color: FlutterFlowTheme.of(context).error,
+                      ),
+                ),
+                const SizedBox(height: 24),
+                ElevatedButton.icon(
+                  onPressed: _initializePage,
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Retry'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: FlutterFlowTheme.of(context).primary,
+                    foregroundColor: FlutterFlowTheme.of(context).info,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -64,11 +122,10 @@ class _HomePageViewState extends State<HomePageView> {
             Expanded(
               child: Container(
                 width: MediaQuery.sizeOf(context).width * 1.0,
-                height: MediaQuery.sizeOf(context).height * 0.88,
                 decoration: BoxDecoration(),
                 child: SingleChildScrollView(
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       // Header with location and settings
                       HomePageHeader(
@@ -107,27 +164,47 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Future<void> _handleTaskToggle(String taskId, bool value) async {
-    // Find the task and toggle it
-    final gardenTasks = _controller.dataModel.userGardenTasks;
-    final plantTasks = _controller.dataModel.userPlantTasks;
+    try {
+      // Find the task and toggle it
+      final gardenTasks = _controller.dataModel.userGardenTasks;
+      final plantTasks = _controller.dataModel.userPlantTasks;
 
-    // Check garden tasks
-    if (gardenTasks != null) {
-      final gardenTask =
-          gardenTasks.where((task) => task.reference.id == taskId).firstOrNull;
-      if (gardenTask != null) {
-        await _controller.toggleGardenTask(gardenTask, value);
-        return;
+      // Check garden tasks
+      if (gardenTasks != null) {
+        final gardenTask = gardenTasks
+            .where((task) => task.reference.id == taskId)
+            .firstOrNull;
+        if (gardenTask != null) {
+          await _controller.toggleGardenTask(gardenTask, value);
+          setState(() {}); // Refresh UI to reflect the change
+          return;
+        }
       }
-    }
 
-    // Check plant tasks
-    if (plantTasks != null) {
-      final plantTask =
-          plantTasks.where((task) => task.reference.id == taskId).firstOrNull;
-      if (plantTask != null) {
-        await _controller.togglePlantTask(plantTask, value);
-        return;
+      // Check plant tasks
+      if (plantTasks != null) {
+        final plantTask =
+            plantTasks.where((task) => task.reference.id == taskId).firstOrNull;
+        if (plantTask != null) {
+          await _controller.togglePlantTask(plantTask, value);
+          setState(() {}); // Refresh UI to reflect the change
+          return;
+        }
+      }
+
+      // If we get here, task was not found
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Task not found. Please refresh the page.'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      }
+    } catch (e) {
+      // Error handling is managed in controller, just refresh UI
+      if (mounted) {
+        setState(() {}); // Refresh UI to reflect any state changes/rollbacks
       }
     }
   }

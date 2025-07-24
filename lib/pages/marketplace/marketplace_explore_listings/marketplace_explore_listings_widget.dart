@@ -53,25 +53,29 @@ class _MarketplaceExploreListingsWidgetState
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.tempNotMine = await queryProductRecordOnce(
-        queryBuilder: (productRecord) => productRecord
-            .where(
-              'isArchived',
-              isEqualTo: false,
-            )
-            .where(
-              'seller',
-              isNotEqualTo: currentUserReference,
-            ),
-        limit: 50,
-      );
-      _model.tempMine = await queryProductRecordOnce(
-        queryBuilder: (productRecord) => productRecord.where(
-          'seller',
-          isEqualTo: currentUserReference,
-        ),
-        limit: 50,
-      );
+      try {
+        _model.tempNotMine = await queryProductRecordOnce(
+          queryBuilder: (productRecord) => productRecord
+              .where('isArchived', isEqualTo: false)
+              .where('seller', isNotEqualTo: currentUserReference),
+          limit: 50,
+        );
+        _model.tempMine = await queryProductRecordOnce(
+          queryBuilder: (productRecord) => productRecord.where(
+            'seller',
+            isEqualTo: currentUserReference,
+          ),
+          limit: 50,
+        );
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to load listings: ${e.toString()}')),
+          );
+        }
+        _model.tempNotMine = [];
+        _model.tempMine = [];
+      }
       if (isAndroid) {
         _model.linkToApp =
             'https://play.google.com/store/apps/details?id=com.plantculture';

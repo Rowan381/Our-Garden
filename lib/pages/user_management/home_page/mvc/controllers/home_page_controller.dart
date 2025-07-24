@@ -3,6 +3,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/user_management/location_services/location_services_widget.dart';
 import '/pages/user_management/account_settings/account_settings_widget.dart';
 import '/pages/marketplace/marketplace_explore_listings/marketplace_explore_listings_widget.dart';
+import '/pages/gpt/gpt/gpt_widget.dart';
+import '/pages/chat_groupwbubbles/chat_2_main_new/chat2_main_new_widget.dart';
+import '/pages/garden_management/tabs/tabs_widget.dart';
 import '../models/home_page_data_model.dart';
 import '../models/home_page_ui_models.dart';
 import '../repositories/home_page_repository.dart';
@@ -11,11 +14,22 @@ import '../services/task_service.dart';
 /// Controller class handling all business logic for the home page
 class HomePageController {
   final HomePageDataModel _dataModel;
-  final BuildContext _context;
+  BuildContext? _context;
 
-  HomePageController(this._context) : _dataModel = HomePageDataModel();
+  HomePageController(BuildContext context) : _dataModel = HomePageDataModel() {
+    _context = context;
+  }
 
   HomePageDataModel get dataModel => _dataModel;
+
+  /// Update context reference - should be called from view's build method
+  void updateContext(BuildContext context) {
+    _context = context;
+  }
+
+  /// Safe context access with validation
+  BuildContext? get currentContext => _context;
+  bool get hasValidContext => _context != null && _context!.mounted;
 
   /// Initialize the home page data using repository pattern
   Future<void> initializePage() async {
@@ -34,6 +48,19 @@ class HomePageController {
       _initializeCheckboxStates();
     } catch (e) {
       debugPrint('Error initializing home page: $e');
+
+      // Show user-friendly error feedback only if context is valid
+      if (hasValidContext) {
+        ScaffoldMessenger.of(_context!).showSnackBar(
+          SnackBar(
+            content: Text('Failed to load homepage data. Please try again.'),
+            action: SnackBarAction(
+              label: 'Retry',
+              onPressed: () => initializePage(),
+            ),
+          ),
+        );
+      }
       rethrow;
     }
   }
@@ -57,76 +84,202 @@ class HomePageController {
 
   /// Handle task checkbox changes
   Future<void> toggleGardenTask(dynamic task, bool value) async {
-    _dataModel.checkboxValueMap1[task] = value;
+    try {
+      _dataModel.checkboxValueMap1[task] = value;
 
-    // Use TaskService to update task completion
-    await TaskService.updateGardenTaskCompletion(task.reference, value);
+      // Use TaskService to update task completion
+      await TaskService.updateGardenTaskCompletion(task.reference, value);
+    } catch (e) {
+      // Revert the checkbox state on error
+      _dataModel.checkboxValueMap1[task] = !value;
+
+      if (hasValidContext) {
+        ScaffoldMessenger.of(_context!).showSnackBar(
+          SnackBar(
+              content: Text('Failed to update garden task: ${e.toString()}')),
+        );
+      }
+      rethrow;
+    }
   }
 
   Future<void> togglePlantTask(dynamic task, bool value) async {
-    _dataModel.checkboxValueMap2[task] = value;
+    try {
+      _dataModel.checkboxValueMap2[task] = value;
 
-    // Use TaskService to update task completion
-    await TaskService.updatePlantTaskCompletion(task.reference, value);
+      // Use TaskService to update task completion
+      await TaskService.updatePlantTaskCompletion(task.reference, value);
+    } catch (e) {
+      // Revert the checkbox state on error
+      _dataModel.checkboxValueMap2[task] = !value;
+
+      if (hasValidContext) {
+        ScaffoldMessenger.of(_context!).showSnackBar(
+          SnackBar(
+              content: Text('Failed to update plant task: ${e.toString()}')),
+        );
+      }
+      rethrow;
+    }
   }
 
   /// Navigation methods
   Future<void> navigateToLocationServices() async {
-    final confirm = await _showLocationDialog();
-    if (confirm) {
-      await Navigator.of(_context).pushNamed(LocationServicesWidget.routeName);
+    if (!hasValidContext) return;
+
+    try {
+      final confirm = await _showLocationDialog();
+      if (confirm && hasValidContext) {
+        _context!.pushNamed(LocationServicesWidget.routeName);
+      }
+    } catch (e) {
+      if (hasValidContext) {
+        ScaffoldMessenger.of(_context!).showSnackBar(
+          SnackBar(
+              content: Text(
+                  'Failed to navigate to location services: ${e.toString()}')),
+        );
+      }
     }
   }
 
   Future<void> navigateToAccountSettings() async {
-    await launchURL('https://www.google.com');
-    await Navigator.of(_context).pushNamed(AccountSettingsWidget.routeName);
+    if (!hasValidContext) return;
+
+    try {
+      _context!.pushNamed(AccountSettingsWidget.routeName);
+    } catch (e) {
+      if (hasValidContext) {
+        ScaffoldMessenger.of(_context!).showSnackBar(
+          SnackBar(
+              content: Text(
+                  'Failed to navigate to account settings: ${e.toString()}')),
+        );
+      }
+    }
   }
 
   Future<void> navigateToGpt() async {
-    await Navigator.of(_context).pushNamed('/gpt');
+    if (!hasValidContext) return;
+
+    try {
+      debugPrint('Navigating to GPT with route name: ${GptWidget.routeName}');
+      _context!.pushNamed(GptWidget.routeName);
+    } catch (e) {
+      debugPrint(
+          'Navigation error - Expected: ${GptWidget.routeName}, Error: ${e.toString()}');
+      if (hasValidContext) {
+        ScaffoldMessenger.of(_context!).showSnackBar(
+          SnackBar(content: Text('Failed to navigate to GPT: ${e.toString()}')),
+        );
+      }
+    }
   }
 
   Future<void> navigateToMessages() async {
-    await Navigator.of(_context).pushNamed('/chat-2-main-new');
+    if (!hasValidContext) return;
+
+    try {
+      debugPrint(
+          'Navigating to Messages with route name: ${Chat2MainNewWidget.routeName}');
+      _context!.pushNamed(Chat2MainNewWidget.routeName);
+    } catch (e) {
+      debugPrint(
+          'Navigation error - Expected: ${Chat2MainNewWidget.routeName}, Error: ${e.toString()}');
+      if (hasValidContext) {
+        ScaffoldMessenger.of(_context!).showSnackBar(
+          SnackBar(
+              content: Text('Failed to navigate to messages: ${e.toString()}')),
+        );
+      }
+    }
   }
 
   Future<void> navigateToMarketplace() async {
-    await Navigator.of(_context)
-        .pushNamed(MarketplaceExploreListingsWidget.routeName);
+    if (!hasValidContext) return;
+
+    try {
+      _context!.pushNamed(MarketplaceExploreListingsWidget.routeName);
+    } catch (e) {
+      if (hasValidContext) {
+        ScaffoldMessenger.of(_context!).showSnackBar(
+          SnackBar(
+              content:
+                  Text('Failed to navigate to marketplace: ${e.toString()}')),
+        );
+      }
+    }
   }
 
   Future<void> navigateToTabs() async {
-    if (Navigator.of(_context).canPop()) {
-      Navigator.of(_context).pop();
+    if (!hasValidContext) return;
+
+    try {
+      if (_context!.canPop()) {
+        _context!.pop();
+      }
+      // TODO: Replace with static route name when available (e.g., TabsWidget.routeName)
+      _context!.pushNamed(TabsWidget.routeName);
+    } catch (e) {
+      if (hasValidContext) {
+        ScaffoldMessenger.of(_context!).showSnackBar(
+          SnackBar(
+              content: Text('Failed to navigate to tabs: ${e.toString()}')),
+        );
+      }
     }
-    await Navigator.of(_context).pushNamed('/tabs');
   }
 
   /// Helper methods
   Future<bool> _showLocationDialog() async {
+    if (!hasValidContext) return false;
+
     final hasLocation = _dataModel.userDoc?.location != null;
 
     return await showDialog<bool>(
-          context: _context,
+          context: _context!,
+          barrierDismissible: false,
           builder: (alertDialogContext) {
             return AlertDialog(
-              title: Text(hasLocation
-                  ? 'Update Location Services'
-                  : 'Location Services'),
-              content: Text(hasLocation
-                  ? 'Would you like to update your current location?'
-                  : 'In order to search nearby, this app requires access to your current location.'),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              title: Text(
+                hasLocation ? 'Update Location Services' : 'Location Services',
+                style: Theme.of(_context!).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+              content: Text(
+                hasLocation
+                    ? 'Would you like to update your current location?'
+                    : 'In order to search nearby, this app requires access to your current location.',
+                style: Theme.of(_context!).textTheme.bodyMedium,
+              ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(alertDialogContext, false),
-                  child: Text('Not Now'),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Theme.of(_context!)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.6),
+                  ),
+                  child: const Text('Not Now'),
                 ),
-                TextButton(
+                ElevatedButton(
                   onPressed: () => Navigator.pop(alertDialogContext, true),
-                  child: Text('Confirm'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(_context!).primaryColor,
+                    foregroundColor: Theme.of(_context!).colorScheme.onPrimary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text('Confirm'),
                 ),
               ],
+              actionsPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             );
           },
         ) ??
@@ -156,7 +309,9 @@ class HomePageController {
         tasks.add(TaskItemModel(
           id: task.reference.id,
           title: task.objective,
-          description: '',
+          description: task.objective.isNotEmpty
+              ? 'Garden task - ${task.objective}'
+              : 'No description available',
           isCompleted: task.completedToday,
           type: 'garden',
         ));
@@ -169,7 +324,9 @@ class HomePageController {
         tasks.add(TaskItemModel(
           id: task.reference.id,
           title: task.objective,
-          description: '',
+          description: task.objective.isNotEmpty
+              ? 'Plant task - ${task.objective}'
+              : 'No description available',
           isCompleted: task.completedToday,
           type: 'plant',
         ));
@@ -182,5 +339,6 @@ class HomePageController {
   /// Clean up resources
   void dispose() {
     _dataModel.clearData();
+    _context = null; // Clear context reference to prevent memory leaks
   }
 }

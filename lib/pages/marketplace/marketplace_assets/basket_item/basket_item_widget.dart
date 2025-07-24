@@ -48,51 +48,56 @@ class _BasketItemWidgetState extends State<BasketItemWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.loadIndex = 0;
-      while (_model.loadIndex < widget.basketItems!.length) {
-        _model.productCheck = await ProductRecord.getDocumentOnce(
-            (widget.basketItems!.elementAtOrNull(_model.loadIndex))!
-                .productRef!);
-        if ((_model.productCheck != null) &&
-                ((widget.basketItems!.elementAtOrNull(_model.loadIndex))!
-                        .quantity <=
-                    _model.productCheck!.units)
-            ? true
-            : false) {
-          _model.addToNewBasket(BasketItemStruct(
-            productRef: _model.productCheck?.reference,
-            quantity: (widget.basketItems?.elementAtOrNull(_model.loadIndex))
-                ?.quantity,
-            pricepu: _model.productCheck?.price,
-          ));
-          _model.cartTotal = _model.cartTotal +
-              ((widget.basketItems!.elementAtOrNull(_model.loadIndex))!
-                      .quantity *
-                  _model.productCheck!.price);
-        } else if (_model.productCheck != null) {
-          _model.addToNewBasket(BasketItemStruct(
-            productRef: _model.productCheck?.reference,
-            quantity: _model.productCheck?.units,
-            pricepu: _model.productCheck?.price,
-          ));
-          _model.cartTotal = _model.cartTotal +
-              (_model.productCheck!.units * _model.productCheck!.price);
+      try {
+        _model.loadIndex = 0;
+        while (_model.loadIndex < (widget.basketItems?.length ?? 0)) {
+          final basketItem =
+              widget.basketItems?.elementAtOrNull(_model.loadIndex);
+          if (basketItem?.productRef == null) {
+            _model.loadIndex++;
+            continue;
+          }
+          _model.productCheck =
+              await ProductRecord.getDocumentOnce(basketItem!.productRef!);
+          if ((_model.productCheck != null) &&
+              ((basketItem.quantity ?? 0) <=
+                  (_model.productCheck!.units ?? 0))) {
+            _model.addToNewBasket(BasketItemStruct(
+              productRef: _model.productCheck?.reference,
+              quantity: basketItem.quantity,
+              pricepu: _model.productCheck?.price,
+            ));
+            _model.cartTotal = _model.cartTotal +
+                ((basketItem.quantity ?? 0) *
+                    (_model.productCheck?.price ?? 0));
+          } else if (_model.productCheck != null) {
+            _model.addToNewBasket(BasketItemStruct(
+              productRef: _model.productCheck?.reference,
+              quantity: _model.productCheck?.units,
+              pricepu: _model.productCheck?.price,
+            ));
+            _model.cartTotal = _model.cartTotal +
+                ((_model.productCheck?.units ?? 0) *
+                    (_model.productCheck?.price ?? 0));
+          }
+          _model.loadIndex++;
         }
-
-        _model.loadIndex = _model.loadIndex + 1;
+        if (widget.pendingBasketRef != null) {
+          await widget.pendingBasketRef!.update({
+            ...mapToFirestore({
+              'basketItems': getBasketItemListFirestoreData(_model.newBasket),
+            }),
+          });
+        }
+        _model.newBasket = [];
+        safeSetState(() {});
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to update basket: ${e.toString()}')),
+          );
+        }
       }
-
-      await widget.pendingBasketRef!.update({
-        ...mapToFirestore(
-          {
-            'basketItems': getBasketItemListFirestoreData(
-              _model.newBasket,
-            ),
-          },
-        ),
-      });
-      _model.newBasket = [];
-      safeSetState(() {});
     });
   }
 
@@ -216,8 +221,8 @@ class _BasketItemWidgetState extends State<BasketItemWidget> {
                                         onPressed: () async {
                                           _model.orderPBasket =
                                               await PendingBasketRecord
-                                                  .getDocumentOnce(widget
-                                                      .pendingBasketRef!);
+                                                  .getDocumentOnce(
+                                                      widget.pendingBasketRef!);
                                           _model.orderBasketItems = _model
                                               .orderPBasket!.basketItems
                                               .toList()
@@ -1355,8 +1360,8 @@ class _BasketItemWidgetState extends State<BasketItemWidget> {
                                 lastMessageSentBy: currentUserReference,
                                 groupChatId:
                                     random_data.randomInteger(1000000, 9999999),
-                                productRef: widget
-                                    .basketItems?.firstOrNull?.productRef,
+                                productRef:
+                                    widget.basketItems?.firstOrNull?.productRef,
                                 isListingMessage: true,
                                 isEmptyChat: false,
                                 pendingBasket: widget.pendingBasketRef,
@@ -1377,8 +1382,8 @@ class _BasketItemWidgetState extends State<BasketItemWidget> {
                                 lastMessageSentBy: currentUserReference,
                                 groupChatId:
                                     random_data.randomInteger(1000000, 9999999),
-                                productRef: widget
-                                    .basketItems?.firstOrNull?.productRef,
+                                productRef:
+                                    widget.basketItems?.firstOrNull?.productRef,
                                 isListingMessage: true,
                                 isEmptyChat: false,
                                 pendingBasket: widget.pendingBasketRef,

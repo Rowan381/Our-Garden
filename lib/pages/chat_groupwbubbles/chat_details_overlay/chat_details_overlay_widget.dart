@@ -268,7 +268,7 @@ class _ChatDetailsOverlayWidgetState extends State<ChatDetailsOverlayWidget> {
                                     queryParameters: {
                                       'chatRef': serializeParam(
                                         widget.chatRef,
-                                        ParamType.Document,
+                                        ParamType.String,
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{

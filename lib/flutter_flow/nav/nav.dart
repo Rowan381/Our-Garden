@@ -30,7 +30,8 @@ class AppStateNotifier extends ChangeNotifier {
 
   BaseAuthUser? initialUser;
   BaseAuthUser? user;
-  bool showSplashImage = true;
+  // Force splash image to always be hidden
+  bool get showSplashImage => false;
   String? _redirectLocation;
 
   /// Determines whether the app will refresh and build again when a sign
@@ -40,7 +41,8 @@ class AppStateNotifier extends ChangeNotifier {
   /// Otherwise, this will trigger a refresh and interrupt the action(s).
   bool notifyOnAuthChange = true;
 
-  bool get loading => user == null || showSplashImage;
+  // Always return false for loading to prevent splash screen from showing
+  bool get loading => false;
   bool get loggedIn => user?.loggedIn ?? false;
   bool get initiallyLoggedIn => initialUser?.loggedIn ?? false;
   bool get shouldRedirect => loggedIn && _redirectLocation != null;
@@ -70,8 +72,21 @@ class AppStateNotifier extends ChangeNotifier {
   }
 
   void stopShowingSplashImage() {
-    showSplashImage = false;
-    notifyListeners();
+    try {
+      print('Force dismissing splash image...');
+      // Always force notification since we made showSplashImage a getter
+      try {
+        notifyListeners();
+        print('Splash image should now be forcefully hidden.');
+      } catch (e) {
+        print('Error in notifyListeners when hiding splash: $e');
+      }
+    } catch (e) {
+      print('Error stopping splash image: $e');
+      try {
+        notifyListeners();
+      } catch (_) {}
+    }
   }
 }
 
@@ -80,14 +95,36 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : LandingPageWidget(),
+      errorBuilder: (context, state) {
+        try {
+          return appStateNotifier.loggedIn ? NavBarPage() : LandingPageWidget();
+        } catch (e) {
+          print('Error in router errorBuilder: $e');
+          return Scaffold(
+            body: Center(
+              child: Text('Error loading page'),
+            ),
+          );
+        }
+      },
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : LandingPageWidget(),
+          builder: (context, _) {
+            try {
+              return appStateNotifier.loggedIn
+                  ? NavBarPage()
+                  : LandingPageWidget();
+            } catch (e) {
+              print('Error in initial route builder: $e');
+              return Scaffold(
+                body: Center(
+                  child: Text('Error loading initial page'),
+                ),
+              );
+            }
+          },
         ),
         FFRoute(
           name: ReviewsPageWidget.routeName,

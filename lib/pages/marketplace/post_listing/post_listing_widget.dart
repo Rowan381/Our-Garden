@@ -1493,7 +1493,7 @@ class _PostListingWidgetState extends State<PostListingWidget> {
                             }
                             if (_model.categoryChipsValue == 'Produce') {
                               if (_model.unitTypeInputTextController.text ==
-                                      '') {
+                                  '') {
                                 await showDialog(
                                   context: context,
                                   builder: (alertDialogContext) {
@@ -1557,73 +1557,77 @@ class _PostListingWidgetState extends State<PostListingWidget> {
                               }
                             }
 
-                            await ProductRecord.collection.doc().set({
-                              ...createProductRecordData(
-                                units: valueOrDefault<int>(
-                                  int.tryParse(
-                                      _model.unitInputTextController.text),
-                                  0,
+                            try {
+                              await ProductRecord.collection.doc().set({
+                                ...createProductRecordData(
+                                  units: valueOrDefault<int>(
+                                    int.tryParse(
+                                        _model.unitInputTextController.text),
+                                    0,
+                                  ),
+                                  price: valueOrDefault<double>(
+                                    functions.formatPriceAsDouble(
+                                        _model.priceInputTextController.text),
+                                    0.0,
+                                  ),
+                                  description: valueOrDefault<String>(
+                                    _model.descInputTextController1.text,
+                                    'No description provided',
+                                  ),
+                                  seller: currentUserReference,
+                                  image: FFAppState().createListingURL,
+                                  title: valueOrDefault<String>(
+                                    _model.titleInputTextController.text,
+                                    'New Listing',
+                                  ),
+                                  unitType: valueOrDefault<String>(
+                                    functions.singularUnitType(_model
+                                        .unitTypeInputTextController.text),
+                                    'pound',
+                                  ),
+                                  location: currentUserDocument?.location,
+                                  sellerImage: valueOrDefault<String>(
+                                    currentUserPhoto,
+                                    'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/qiGqyt5ktHa4wEBF2FEm/assets/m8y3kksvax1i/noProfile.webp',
+                                  ),
+                                  sellerName: valueOrDefault<String>(
+                                    currentUserDisplayName,
+                                    'OurGarden User',
+                                  ),
+                                  locationCity: valueOrDefault<String>(
+                                    valueOrDefault(
+                                        currentUserDocument?.city, ''),
+                                    'None',
+                                  ),
+                                  isArchived: false,
+                                  produceType:
+                                      _model.categoryChipsValue == 'Produce',
+                                  gardenType:
+                                      _model.categoryChipsValue == 'Garden',
+                                  itemForm: _model.itemFormDropdownValue,
+                                  tempCondition:
+                                      _model.tempConditionDropdownValue,
+                                  forSale: true,
                                 ),
-                                price: valueOrDefault<double>(
-                                  functions.formatPriceAsDouble(
-                                      _model.priceInputTextController.text),
-                                  0.0,
-                                ),
-                                description: valueOrDefault<String>(
-                                  _model.descInputTextController1.text,
-                                  'No description provided',
-                                ),
-                                seller: currentUserReference,
-                                image: FFAppState().createListingURL,
-                                title: valueOrDefault<String>(
-                                  _model.titleInputTextController.text,
-                                  'New Listing',
-                                ),
-                                unitType: valueOrDefault<String>(
-                                  functions.singularUnitType(
-                                      _model.unitTypeInputTextController.text),
-                                  'pound',
-                                ),
-                                location: currentUserDocument?.location,
-                                sellerImage: valueOrDefault<String>(
-                                  currentUserPhoto,
-                                  'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/qiGqyt5ktHa4wEBF2FEm/assets/m8y3kksvax1i/noProfile.webp',
-                                ),
-                                sellerName: valueOrDefault<String>(
-                                  currentUserDisplayName,
-                                  'OurGarden User',
-                                ),
-                                locationCity: valueOrDefault<String>(
-                                  valueOrDefault(currentUserDocument?.city, ''),
-                                  'None',
-                                ),
-                                isArchived: false,
-                                produceType:
-                                    _model.categoryChipsValue == 'Produce'
-                                        ? true
-                                        : false,
-                                gardenType:
-                                    _model.categoryChipsValue == 'Garden'
-                                        ? true
-                                        : false,
-                                itemForm: _model.itemFormDropdownValue,
-                                tempCondition:
-                                    _model.tempConditionDropdownValue,
-                                forSale: true,
-                              ),
-                              ...mapToFirestore(
-                                {
+                                ...mapToFirestore({
                                   'created_at': FieldValue.serverTimestamp(),
                                   'listingFilters':
                                       FFAppState().postListingFilters,
-                                },
-                              ),
-                            });
-                            FFAppState().createListingURL = '';
-                            safeSetState(() {});
-
-                            context.pushNamed(
-                                MarketplaceExploreListingsWidget.routeName);
+                                }),
+                              });
+                              FFAppState().createListingURL = '';
+                              safeSetState(() {});
+                              context.pushNamed(
+                                  MarketplaceExploreListingsWidget.routeName);
+                            } catch (e) {
+                              if (mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Failed to publish listing: ${e.toString()}')),
+                                );
+                              }
+                            }
                           },
                           text: 'Publish',
                           options: FFButtonOptions(

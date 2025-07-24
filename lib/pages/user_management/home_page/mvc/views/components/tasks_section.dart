@@ -137,7 +137,7 @@ class _TasksSectionState extends State<TasksSection> {
         ),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Theme(
             data: ThemeData(

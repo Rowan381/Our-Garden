@@ -725,7 +725,7 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
                                       userA: currentUserReference,
                                       userB: _model.friendsList.last,
                                       lastMessage: '',
-                                      lastMessageTime: getCurrentTimestamp,
+                                      lastMessageTime: DateTime.now(),
                                       lastMessageSentBy: currentUserReference,
                                       groupChatId: random_data.randomInteger(
                                           1000000, 9999999),
@@ -736,23 +736,22 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
                                       },
                                     ),
                                   });
-                                  _model.newChatThread =
-                                      ChatsRecord.getDocumentFromData({
-                                    ...createChatsRecordData(
-                                      userA: currentUserReference,
-                                      userB: _model.friendsList.last,
-                                      lastMessage: '',
-                                      lastMessageTime: getCurrentTimestamp,
-                                      lastMessageSentBy: currentUserReference,
-                                      groupChatId: random_data.randomInteger(
-                                          1000000, 9999999),
-                                    ),
-                                    ...mapToFirestore(
-                                      {
-                                        'users': _model.friendsList,
-                                      },
-                                    ),
-                                  }, chatsRecordReference);
+                                  // _model.chat2 =
+                                  //     ChatsRecord.getDocumentFromData({
+                                  //   ...createChatsRecordData(
+                                  //     userA: currentUserReference,
+                                  //     userB: _model.friendsList.last,
+                                  //     lastMessage: '',
+                                  //     lastMessageTime: getCurrentTimestamp,
+                                  //     lastMessageSentBy: currentUserReference,
+                                  //     groupChatId: random_data.randomInteger(1000000, 9999999),
+                                  //   ),
+                                  //   ...mapToFirestore(
+                                  //     {
+                                  //       'users': _model.friendsList,
+                                  //     },
+                                  //   ),
+                                  // }, chatsRecordReference);
                                   context.pushNamed(
                                     Chat2DetailsWidget.routeName,
                                     queryParameters: {

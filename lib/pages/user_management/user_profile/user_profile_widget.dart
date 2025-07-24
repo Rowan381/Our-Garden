@@ -6,12 +6,14 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
+import '/widgets/safe_layout_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'user_profile_model.dart';
 export 'user_profile_model.dart';
+import '../../../widgets/network_aware_image.dart';
 
 class UserProfileWidget extends StatefulWidget {
   const UserProfileWidget({super.key});
@@ -162,16 +164,17 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
             child: Builder(
               builder: (context) {
                 if (currentUserEmail != '') {
-                  return Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
+                  return SafeLayoutWrapper(
+                    child: SafeColumn(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: SafeColumn(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
                             Container(
                               width: MediaQuery.sizeOf(context).width * 1.0,
-                              height: MediaQuery.sizeOf(context).height * 0.919,
                               decoration: BoxDecoration(),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -240,11 +243,14 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                                             shape:
                                                                 BoxShape.circle,
                                                           ),
-                                                          child: Image.network(
-                                                            currentUserPhoto !=
-                                                                        ''
+                                                          child:
+                                                              NetworkAwareImage(
+                                                            imageUrl: currentUserPhoto !=
+                                                                    ''
                                                                 ? currentUserPhoto
                                                                 : 'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/qiGqyt5ktHa4wEBF2FEm/assets/m8y3kksvax1i/noProfile.webp',
+                                                            width: 85.0,
+                                                            height: 85.0,
                                                             fit: BoxFit.cover,
                                                           ),
                                                         ),
@@ -1149,10 +1155,12 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                 ],
                               ),
                             ),
-                          ],
-                        ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   );
                 } else {
                   return Container(

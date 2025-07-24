@@ -61,13 +61,20 @@ void main() {
     FlutterError.presentError(details);
     print('🔥 Flutter Error: ${details.exception}');
     print('🔥 Stack trace: ${details.stack}');
-    
+
     // Report layout errors specifically
     if (details.exception.toString().contains('RenderBox was not laid out') ||
-        details.exception.toString().contains('hasSize')) {
+        details.exception.toString().contains('hasSize') ||
+        details.exception.toString().contains('RenderFlex') ||
+        details.exception.toString().contains('performLayout') ||
+        details.stack.toString().contains('RenderPadding.performLayout') ||
+        details.stack.toString().contains('RenderFlex.performLayout')) {
       ErrorReporter.reportUIError('Layout/Rendering', details.exception,
           userAction: 'Widget layout and rendering');
-      print('🎨 Layout Error Detected - This may be caused by improper widget constraints');
+      print(
+          '🎨 Layout Error Detected - This may be caused by improper widget constraints');
+      print('📊 Consider using MainAxisSize.min for Columns in ScrollViews');
+      print('📏 Check for fixed height containers with expanding children');
     }
 
     // Send to analytics/crashlytics if available
@@ -564,12 +571,13 @@ class _NavBarPageState extends State<NavBarPage> {
     // Safe widget rendering with error boundary
     Widget currentWidget;
     try {
-      currentWidget = _currentPage != null ? _currentPage! : tabs[_currentPageName]!;
+      currentWidget =
+          _currentPage != null ? _currentPage! : tabs[_currentPageName]!;
     } catch (e) {
       print('🔥 Error rendering tab $_currentPageName: $e');
       ErrorReporter.reportUIError('Navigation Tab ($_currentPageName)', e,
           userAction: 'Navigating to $_currentPageName tab');
-      
+
       // Fallback widget for tab errors
       currentWidget = Scaffold(
         body: Center(
@@ -621,7 +629,7 @@ class _NavBarPageState extends State<NavBarPage> {
         onTap: (i) {
           final newPageName = tabs.keys.toList()[i];
           print('🎯 Navigating to tab: $newPageName');
-          
+
           setState(() {
             _currentPage = null;
             _currentPageName = newPageName;

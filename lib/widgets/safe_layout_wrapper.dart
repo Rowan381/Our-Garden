@@ -114,7 +114,8 @@ class SafeColumn extends StatelessWidget {
         mainAxisAlignment: mainAxisAlignment,
         crossAxisAlignment: crossAxisAlignment,
         mainAxisSize: mainAxisSize,
-        children: children.map((child) => _SafeChildWrapper(child: child)).toList(),
+        children:
+            children.map((child) => _SafeChildWrapper(child: child)).toList(),
       ),
     );
   }
@@ -145,7 +146,8 @@ class SafeRow extends StatelessWidget {
         mainAxisAlignment: mainAxisAlignment,
         crossAxisAlignment: crossAxisAlignment,
         mainAxisSize: mainAxisSize,
-        children: children.map((child) => _SafeChildWrapper(child: child)).toList(),
+        children:
+            children.map((child) => _SafeChildWrapper(child: child)).toList(),
       ),
     );
   }
